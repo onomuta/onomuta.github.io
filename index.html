@@ -7,10 +7,13 @@
 <body>
 <div id="pixiview"></div>
 <script id="jsbin-javascript">
-var width = 400;
+var width = 800;
 var height = 400;
 // ステージを作る
 var stage = new PIXI.Stage(0x000000);
+
+var graphics1 = new PIXI.Graphics();
+var graphics2 = new PIXI.Graphics();
 // レンダラーを作る
 var renderer = PIXI.autoDetectRenderer(width, height);
 // レンダラーのviewをDOMに追加する
@@ -23,25 +26,79 @@ var style = {font:'bold 60pt Arial', fill:'white'};
 var textobj = new PIXI.Text(word, style);
 textobj.position.x = 60;
 textobj.position.y = height / 2;
-
+  
 // テキストオブジェクトをステージに乗せる
-stage.addChild(textobj);
+//stage.addChild(textobj);
+
+
+var posX = 100;
+var posY = 100;
+// window.onmousemove = handleMouseMove;
+// function handleMouseMove(event) {
+//   posX = event.clientX;
+//   posY = event.clientY;
+// }
+
+
+function MouseMoveFunc(e){
+
+	// クライアント座標系を基点としたマウスカーソルの座標を取得
+	posX = e.clientX;
+	posY = e.clientY;
+
+	// 出力テスト
+	console.log("x:" + posX);
+	console.log("y:" + posY);
+}
+// イベントリスナーに対応している
+if(document.addEventListener){
+
+	// マウスを移動するたびに実行されるイベント
+	document.addEventListener("mousemove" , MouseMoveFunc);
+
+// アタッチイベントに対応している
+}else if(document.attachEvent){
+
+	// マウスを移動するたびに実行されるイベント
+	document.attachEvent("onmousemove" , MouseMoveFunc);
+
+}
+
+var spin1 = 0;
+function eyes(){
+  graphics1.clear();
+  graphics1.beginFill(0xffffff, 1.0);
+  graphics1.drawCircle(0, 0, 180);
+  graphics1.beginFill(0x000000, 1.0);
+  graphics1.drawCircle(70, 0, 90);
+  spin1 = spin1 + 0.02;
+  graphics1.setTransform(180,180,1,1,-spin1 +180,0,0,0,0);
+  graphics1.endFill();
+  
+  graphics2.clear();
+  graphics2.beginFill(0xffffff, 1.0);
+  graphics2.drawCircle(0, 0, 180);
+  graphics2.beginFill(0x000000, 1.0);
+  graphics2.drawCircle(70, 0, 90);
+  spin1 = spin1 + 0.01;
+  graphics2.setTransform(600,180,1,1,spin1,0,0,0,0);
+  graphics2.endFill();
+}
+
+stage.addChild(graphics1);
+stage.addChild(graphics2);
 
 // アニメーション関数を定義する
 function animate(){
-    requestAnimationFrame(animate); // 次の描画タイミングでanimateを呼び出す
-    textobj.rotation += 0.001; // テキストを回転する
-	
-  	textobj.position.x += 12;
-  	if(textobj.position.x > 600){
-  		textobj.position.x = -450;
-  	}
-	
-    renderer.render(stage);   // 描画する
+  //textobj.rotation += 0.01; // テキストを回転する
+  eyes();
+  requestAnimationFrame(animate); // 次の描画タイミングでanimateを呼び出す
+  renderer.render(stage);   // 描画する
 }
 
 // 次のアニメーションフレームでanimate()を呼び出してもらう
 requestAnimationFrame(animate);
+
 
 </script>
 </body>
