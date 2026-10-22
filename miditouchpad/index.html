@@ -130,6 +130,7 @@
   .flow span { color: var(--muted); font-size: 13px; }
   .flow i { color: var(--accent); font-style: normal; font-size: 22px; }
   .flow a { color: inherit; }
+  .show .flow-note { color: var(--muted); font-size: 14px; margin-top: 16px; max-width: none; }
 
   .more { padding: 120px 0 0; }
   .more h2 { font-size: clamp(22px, 3vw, 28px); margin: 0 0 24px; }
@@ -267,20 +268,22 @@
     </div>
   </section>
 
-  <section class="show" id="onomflow">
+  <section class="show" id="use">
     <div class="wrap">
-      <div class="tag">WITH ONOM FLOW</div>
-      <h2 lang="ja">指でなぞって、<br>エフェクトを動かす</h2>
-      <h2 lang="en">Draw with a finger,<br>move the effects</h2>
-      <p lang="ja">VJ アプリ <a href="../onomflow/">ONOM FLOW</a> の MIDI Learn で、X・Y をエフェクトのパラメータに、タッチをエフェクトのオン・オフに割り当てられます。</p>
-      <p lang="en">With MIDI Learn in the VJ app <a href="../onomflow/">ONOM FLOW</a>, map X and Y to effect parameters and touch to an effect toggle.</p>
+      <div class="tag">WORKS WITH</div>
+      <h2 lang="ja">指でなぞって、<br>音も映像も動かす</h2>
+      <h2 lang="en">Draw with a finger,<br>move sound and visuals</h2>
+      <p lang="ja">MIDI を受け取れるアプリなら、何にでも使えます。DAW のフィルター、ソフトシンセのつまみ、VJ ソフトのエフェクトなどに、MIDI Learn で割り当てるだけです。</p>
+      <p lang="en">It works with any app that takes MIDI. Map it with MIDI Learn to a filter in your DAW, a knob on a soft synth, or an effect in your VJ software.</p>
       <div class="flow">
-        <div><b lang="ja">トラックパッド</b><b lang="en">Trackpad</b><span lang="ja">触れる・なぞる</span><span lang="en">touch and drag</span></div>
+        <div><b lang="ja">トラックパッド</b><b lang="en">Trackpad</b><span lang="ja">触れる・なぞる</span><span lang="en">Touch and drag</span></div>
         <i aria-hidden="true">→</i>
-        <div><b>MIDITouchPad</b><span>CC 1 · CC 2 · CC 64</span></div>
+        <div><b>MIDITouchPad</b><span lang="ja">位置と触れているかを MIDI に</span><span lang="en">Turns position and touch into MIDI</span></div>
         <i aria-hidden="true">→</i>
-        <div><b><a href="../onomflow/">ONOM FLOW</a></b><span lang="ja">ISF のパラメータ・オン・オフ</span><span lang="en">ISF parameters and toggles</span></div>
+        <div><b lang="ja">いつものアプリ</b><b lang="en">Your app</b><span lang="ja">DAW・シンセ・VJ ソフト</span><span lang="en">DAW, synth or VJ software</span></div>
       </div>
+      <p class="flow-note" lang="ja">VJ アプリ <a href="../onomflow/">ONOM FLOW</a> でも、エフェクトのパラメータやオン・オフに割り当てられます。</p>
+      <p class="flow-note" lang="en">In the VJ app <a href="../onomflow/">ONOM FLOW</a>, you can map it to effect parameters and toggles too.</p>
     </div>
   </section>
 
