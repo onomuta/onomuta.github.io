@@ -1,94 +1,153 @@
-<!DOCTYPE html>
-<html >
+<!doctype html>
+<html lang="ja" data-lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat+Alternates" rel="stylesheet">
-	<title>onom</title>
-	<style>
-		*{
-			margin:0;
-			box-sizing:border-box;
-      font-family: 'Montserrat Alternates', sans-serif;
-		}
-		body{
-			position:absolute;
-			width:100%;
-      background:#999;
-      text-align:center;  
-      min-height: 100%;
-      display: flex;
-      flex-direction: column;
-		}
-    .content {
-      flex: 1;
-    }
-		.header{
-      background:#000;
-    	color: #999;      
-			display: block;
-			width: 100%;
-			padding:20px;
-      font-size: 8vw;
-			text-decoration: initial;
-		}
-    .link a {
-			display: block;
-			width: 100%;
-			padding:20px;
-      font-size: 8vw;
-			text-decoration: initial;
-    	color: #000;
-		}
-		.link a:hover {
-			background-color: #000;
-			color:#999;
-    }
-    .link .min{
-      font-size: 4vw;
-      display:block
-    }
-    .footer a {
-			display: block;
-			width: 100%;
-			padding:10px;
-      font-size: 2vw;
-			text-decoration: initial;
-    	color: #000;
-		}
-		.footer a:hover {
-			background-color: #000;
-			color:#999;
-    }
-    
-	</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>onom apps</title>
+<meta name="description" content="VJ やリアルタイム映像のための、Mac と iPhone のアプリ。ONOM FLOW、Mirage Composer、MIDITouchPad、MIDISimulator。">
+<meta property="og:title" content="onom apps">
+<meta property="og:description" content="VJ やリアルタイム映像のための、Mac と iPhone のアプリ。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://onomuta.github.io/">
+<meta property="og:image" content="https://onomuta.github.io/assets/og-onomflow.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://onomuta.github.io/">
+<style>
+  :root {
+    --bg: #0b0b0c;
+    --panel: #151517;
+    --rule: #2a2a2e;
+    --text: #f2f2f2;
+    --body: #c4c4ca;
+    --muted: #8e8e95;
+    --mono: ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.7 -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Helvetica Neue", sans-serif; }
+  html[data-lang="ja"] [lang="en"], html[data-lang="en"] [lang="ja"] { display: none !important; }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 16px; }
+  header.top { border-bottom: 1px solid var(--rule); }
+  header.top .wrap { display: flex; align-items: center; gap: 10px; height: 56px; }
+  .brand { font: 700 13px/1 var(--mono); letter-spacing: 0.22em; color: var(--muted); }
+  .spacer { flex: 1; }
+  .lang-toggle { display: flex; border: 1px solid var(--rule); border-radius: 999px; overflow: hidden; font: 600 12px/1 var(--mono); }
+  .lang-toggle button { background: none; border: 0; color: var(--muted); padding: 7px 11px; cursor: pointer; font: inherit; }
+  .lang-toggle button[aria-pressed="true"] { background: var(--text); color: var(--bg); }
+
+  .intro { padding: 40px 0 24px; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .intro h1 { font-size: clamp(30px, 5vw, 46px); line-height: 1.2; margin: 0 0 12px; }
+  .intro p { color: var(--body); margin: 0; max-width: 34em; }
+
+  /* One card per app. To add an app, copy an <a class="app"> block and set --c to its accent color. */
+  .apps { margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+  a.app {
+    --c: #888;
+    display: flex; flex-direction: column; gap: 14px; padding: 22px; border-radius: 18px;
+    background: var(--panel); border: 1px solid var(--rule); color: inherit; text-decoration: none;
+    transition: border-color .15s, transform .15s;
+  }
+  a.app:hover { border-color: var(--c); transform: translateY(-2px); }
+  a.app img { width: 72px; height: 72px; border-radius: 16px; }
+  a.app img.bare { border-radius: 0; margin: -6px; width: 84px; height: 84px; }
+  a.app strong { font-size: 21px; display: block; }
+  a.app .desc { color: var(--body); font-size: 15px; }
+  a.app > div:nth-child(2) { flex: 1; }
+  .meta { display: flex; flex-wrap: wrap; gap: 6px; }
+  .meta span { font: 600 11px/1 var(--mono); letter-spacing: 0.04em; padding: 6px 8px; border-radius: 6px; border: 1px solid var(--rule); color: var(--muted); }
+  .meta span.status { border-color: var(--c); color: var(--c); }
+
+  .x-link { display: inline-flex; align-items: center; gap: 7px; padding: 6px 12px 6px 10px; border-radius: 999px; border: 1px solid var(--rule); color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 600; }
+  .x-link:hover { color: var(--text); }
+  .x-link:hover { border-color: var(--muted); }
+  .x-link svg { width: 13px; height: 13px; fill: currentColor; }
+  footer { margin-top: 96px; border-top: 1px solid var(--rule); padding: 28px 0 44px; color: var(--muted); font-size: 13px; }
+  footer a { color: var(--muted); }
+</style>
 </head>
 <body>
-  <div class="content">
-    <div class="header">onom</div>
-    <div class="link">
-      <a href="onom-studio">
-        onom-studio
-        <span class="min">VJ footage generator</span>
-      </a>
-    </div>
-    <div class="link">
-      <a href="https://onomuta.github.io/nanokon/">
-        nanokon
-        <span class="min">MIDI controller on browser</span>
-      </a>
-    </div>
-    <div class="link">
-      <a href="DJ-name">
-        DJ-name
-        <span class="min">DJ name image generator</span>
-      </a>
+<header class="top">
+  <div class="wrap">
+    <span class="brand">ONOM</span>
+    <div class="spacer"></div>
+    <a class="x-link" href="https://x.com/onom" aria-label="X: @onom"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 2H22l-6.8 7.8L23.2 22h-6.3l-4.9-6.4L6.4 22H3.3l7.3-8.3L2.8 2h6.4l4.4 5.9L18.9 2Zm-1.1 18.1h1.7L7.3 3.8H5.5l12.3 16.3Z"/></svg><span>@onom</span></a>
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <button type="button" data-set-lang="ja" aria-pressed="true">日本語</button>
+      <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
     </div>
   </div>
-  <div class="footer">
-    <a href="https://twitter.com/onom">
-      @onom
+</header>
+
+<main class="wrap">
+  <h1 class="sr">onom apps</h1>
+
+  <section class="apps">
+    <a class="app" href="onomflow/" style="--c:#c8ff3c">
+      <img src="assets/onomflow-icon.png" alt="">
+      <div>
+        <strong>ONOM FLOW</strong>
+        <span class="desc" lang="ja">8つのレイヤーへ素材を次々と流し込む、Mac専用のVJアプリ。</span>
+        <span class="desc" lang="en">A VJ app for Mac: send clips to eight layers, one after another.</span>
+      </div>
+      <div class="meta"><span class="status" lang="ja">近日公開</span><span class="status" lang="en">Coming soon</span><span>Mac</span><span>VJ</span></div>
     </a>
-  </div>
+
+    <a class="app" href="mirage-composer/" style="--c:#a58bff">
+      <img src="assets/mirage-icon.png" alt="">
+      <div>
+        <strong>Mirage Composer</strong>
+        <span class="desc" lang="ja">パッチをつないで作る、リアルタイムの映像。</span>
+        <span class="desc" lang="en">Real-time visuals you build by connecting patches.</span>
+      </div>
+      <div class="meta"><span class="status" lang="ja">無料</span><span class="status" lang="en">Free</span><span>Mac</span><span>iPhone</span><span>iPad</span></div>
+    </a>
+
+    <a class="app" href="miditouchpad/" style="--c:#f0b84a">
+      <img class="bare" src="assets/miditouchpad-icon.png" alt="">
+      <div>
+        <strong>MIDITouchPad</strong>
+        <span class="desc" lang="ja">トラックパッドに触れた位置を MIDI CC で送る、メニューバーのアプリ。</span>
+        <span class="desc" lang="en">Send where you touch your trackpad as MIDI CC, from the menu bar.</span>
+      </div>
+      <div class="meta"><span class="status" lang="ja">無料・オープンソース</span><span class="status" lang="en">Free · Open source</span><span>Mac</span><span>MIDI</span></div>
+    </a>
+
+    <a class="app" href="midisimulator/" style="--c:#4ade80">
+      <img class="bare" src="assets/midisimulator-icon.png" alt="">
+      <div>
+        <strong>MIDISimulator</strong>
+        <span class="desc" lang="ja">Launchpad と Launch Control XL MK2 を画面上で再現。実機が無くても MIDI Learn を進められる。</span>
+        <span class="desc" lang="en">On-screen Launchpad and Launch Control XL MK2, for MIDI Learn without the hardware.</span>
+      </div>
+      <div class="meta"><span class="status" lang="ja">無料・オープンソース</span><span class="status" lang="en">Free · Open source</span><span>Mac</span><span>MIDI</span></div>
+    </a>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">© 2026 Takao Onomura · <a href="https://x.com/onom">X (@onom)</a> · <a href="https://github.com/onomuta">GitHub</a></div>
+</footer>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    var buttons = document.querySelectorAll("[data-set-lang]");
+    function apply(lang) {
+      root.setAttribute("data-lang", lang);
+      root.setAttribute("lang", lang);
+      buttons.forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.setLang === lang)); });
+    }
+    var saved = null;
+    try { saved = localStorage.getItem("lang"); } catch (e) {}
+    apply(saved || ((navigator.language || "ja").toLowerCase().startsWith("ja") ? "ja" : "en"));
+    buttons.forEach(function (b) {
+      b.addEventListener("click", function () {
+        apply(b.dataset.setLang);
+        try { localStorage.setItem("lang", b.dataset.setLang); } catch (e) {}
+      });
+    });
+  })();
+</script>
 </body>
 </html>

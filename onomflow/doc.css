@@ -1,0 +1,55 @@
+/* Shared by the ONOM FLOW support and privacy pages. */
+:root {
+  --bg: #0b0b0c;
+  --panel: #151517;
+  --rule: #2a2a2e;
+  --text: #f2f2f2;
+  --body: #cfcfd4;
+  --muted: #8e8e95;
+  --accent: #c8ff3c;
+  --mono: ui-monospace, "SF Mono", Menlo, monospace;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.8 -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Helvetica Neue", sans-serif;
+}
+html[data-lang="ja"] [lang="en"], html[data-lang="en"] [lang="ja"] { display: none !important; }
+a { color: var(--accent); }
+.wrap { max-width: 760px; margin: 0 auto; padding: 0 16px; }
+
+header.top {
+  position: sticky; top: 0; z-index: 10;
+  background: rgba(11, 11, 12, 0.85);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--rule);
+}
+header.top .wrap { display: flex; align-items: center; gap: 12px; height: 56px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: 0.08em; text-decoration: none; color: var(--text); }
+.brand img { width: 28px; height: 28px; border-radius: 7px; }
+.spacer { flex: 1; }
+.nav-apps {
+  display: flex; align-items: center; gap: 7px; padding: 6px 12px 6px 10px; border-radius: 999px;
+  border: 1px solid var(--rule); color: var(--muted); font-size: 13px; font-weight: 600; text-decoration: none;
+}
+.nav-apps:hover { color: var(--text); border-color: var(--muted); }
+.nav-apps svg { width: 13px; height: 13px; fill: currentColor; }
+@media (max-width: 640px) { .nav-apps { padding: 8px; } .nav-apps span { display: none !important; } }
+.lang-toggle { display: flex; border: 1px solid var(--rule); border-radius: 999px; overflow: hidden; font: 600 12px/1 var(--mono); }
+.lang-toggle button { background: none; border: 0; color: var(--muted); padding: 7px 11px; cursor: pointer; font: inherit; }
+.lang-toggle button[aria-pressed="true"] { background: var(--text); color: var(--bg); }
+
+.doc { max-width: 760px; margin: 0 auto; padding: 48px 16px 80px; }
+.doc h1 { font-size: 32px; line-height: 1.25; margin: 0 0 4px; }
+.doc h2 { font-size: 21px; margin: 40px 0 10px; padding-top: 20px; border-top: 1px solid var(--rule); }
+.doc h3 { font-size: 17px; margin: 24px 0 4px; }
+.doc p, .doc li { color: var(--body); margin: 0 0 10px; }
+.doc ul, .doc ol { padding-left: 22px; margin: 0 0 10px; }
+.doc li strong { color: var(--text); }
+.doc code { font: 14px var(--mono); background: var(--panel); padding: 2px 6px; border-radius: 4px; word-break: break-all; }
+.updated { color: var(--muted) !important; margin-bottom: 28px !important; }
+.callout { border-left: 3px solid var(--accent); padding: 4px 0 4px 14px; }
+.links { margin-top: 40px !important; color: var(--muted) !important; }

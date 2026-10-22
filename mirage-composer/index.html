@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="ja" data-lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mirage Composer — real-time visuals</title>
+<meta name="description" content="Mac・iPhone・iPad向けの、ノードベースのリアルタイム映像環境。無料。">
+<meta property="og:title" content="Mirage Composer">
+<meta property="og:description" content="パッチをつないで作る、Mac・iPhone・iPad のリアルタイム映像。無料。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://onomuta.github.io/mirage-composer/">
+<meta property="og:image" content="https://onomuta.github.io/assets/og-mirage.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://onomuta.github.io/mirage-composer/">
+<link rel="icon" href="../assets/mirage-icon.png">
+<style>
+  :root {
+    --bg: #0e0c16;
+    --panel: #17142a;
+    --panel-2: #1f1b38;
+    --rule: #2e2850;
+    --text: #f3f1fb;
+    --body: #c9c3df;
+    --muted: #a39dbd;
+    --accent: #a58bff;
+    --mono: ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.75 -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Helvetica Neue", sans-serif;
+  }
+  html[data-lang="ja"] [lang="en"], html[data-lang="en"] [lang="ja"] { display: none !important; }
+  a { color: var(--accent); }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+
+  header.top {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(14, 12, 22, 0.82);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule);
+  }
+  header.top .wrap { display: flex; align-items: center; gap: 12px; height: 56px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; text-decoration: none; color: var(--text); }
+  .brand img { width: 28px; height: 28px; border-radius: 7px; }
+  .spacer { flex: 1; }
+  .lang-toggle { display: flex; border: 1px solid var(--rule); border-radius: 999px; overflow: hidden; font: 600 12px/1 var(--mono); }
+  .lang-toggle button { background: none; border: 0; color: var(--muted); padding: 7px 11px; cursor: pointer; font: inherit; }
+  .lang-toggle button[aria-pressed="true"] { background: var(--text); color: var(--bg); }
+
+  .hero { padding: 64px 0 0; position: relative; overflow: hidden; }
+  .hero::before {
+    content: ""; position: absolute; inset: -20% -10% auto; height: 640px; z-index: -1;
+    background: radial-gradient(closest-side, rgba(106, 75, 224, 0.35), transparent 70%);
+  }
+  .hero-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 40px; align-items: center; }
+  .hero .icon { width: 96px; height: 96px; border-radius: 22px; box-shadow: 0 16px 40px rgba(106,75,224,0.45); }
+  .hero h1 { font-size: clamp(40px, 7vw, 72px); line-height: 1.05; margin: 22px 0 18px; letter-spacing: -0.01em; }
+  .hero p.lead { font-size: clamp(17px, 2.2vw, 20px); color: #dcd7f0; margin: 0; }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 13px 22px; border-radius: 999px; font-weight: 700; text-decoration: none;
+    border: 1px solid var(--rule); color: var(--text); background: var(--panel);
+  }
+  .btn.primary { background: var(--accent); color: #140f2a; border-color: var(--accent); }
+  .note { color: var(--muted); font-size: 14px; margin-top: 14px; }
+
+  .graph {
+    margin: 0;
+    background: #0a0912; border: 1px solid var(--rule); border-radius: 16px;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.55);
+    overflow: hidden;
+  }
+  .graph svg { display: block; width: 100%; height: auto; }
+  .graph text { font: 600 11px var(--mono); fill: #d9d4ee; }
+  .graph .port { font-weight: 400; fill: #8f88ad; font-size: 10px; }
+  .wire { fill: none; stroke-width: 2; }
+  .wire.flow { stroke-dasharray: 6 6; animation: flow 1.2s linear infinite; }
+  @keyframes flow { to { stroke-dashoffset: -12; } }
+  .viewer-anim { transform-origin: 470px 150px; animation: spin 9s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { .wire.flow, .viewer-anim { animation: none !important; } }
+
+  /* showcase */
+  .show { padding: 120px 0 0; }
+  .tag { font: 700 12px/1 var(--mono); letter-spacing: 0.16em; color: var(--accent); }
+  .show h2, .more h2 { font-size: clamp(28px, 4.4vw, 44px); line-height: 1.2; margin: 14px 0 14px; }
+  .show p { color: var(--body); font-size: 17px; margin: 0; max-width: 34em; }
+  .split { display: grid; grid-template-columns: 1fr 1.15fr; gap: 56px; align-items: center; }
+  .split.flip > :first-child { order: 2; }
+
+  .shader { display: grid; grid-template-columns: 1.25fr 1fr; gap: 14px; margin-top: 40px; }
+  .code {
+    margin: 0; padding: 20px 22px; border-radius: 14px; overflow-x: auto;
+    background: #0a0912; border: 1px solid var(--rule);
+    font: 13px/1.65 var(--mono); color: #d9d4ee; tab-size: 4;
+  }
+  .code .k { color: #ff7ab2; } .code .t { color: #8fd3ff; } .code .n { color: #d0bf69; } .code .c { color: #6c6787; }
+  .viewer {
+    position: relative; margin: 0; border-radius: 14px; overflow: hidden;
+    background: #000; border: 1px solid var(--rule); min-height: 240px;
+  }
+  .viewer canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .viewer figcaption {
+    position: absolute; left: 12px; top: 10px; font: 600 11px var(--mono); color: rgba(255,255,255,0.7);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+  }
+
+  .codecs { display: grid; gap: 10px; }
+  .codecs div {
+    display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
+    padding: 18px 22px; border-radius: 12px; background: var(--panel); border: 1px solid var(--rule);
+  }
+  .codecs b { font-size: 20px; }
+  .codecs span { color: var(--muted); font: 13px var(--mono); text-align: right; }
+
+  .lib { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 18px 14px; padding: 22px; border-radius: 16px; background: #0a0912; border: 1px solid var(--rule); }
+  .lib-col { display: flex; flex-direction: column; gap: 6px; }
+  .lib-head { font: 700 11px/1 var(--mono); letter-spacing: 0.14em; color: var(--c); margin-bottom: 4px; }
+  .lib span {
+    font: 600 12px/1 var(--mono); color: #e4e0f5; padding: 8px 10px; border-radius: 7px;
+    background: var(--panel); border: 1px solid var(--rule); border-left: 3px solid var(--c);
+  }
+  .faq { border-top: 1px solid var(--rule); }
+  .faq details { border-bottom: 1px solid var(--rule); }
+  .faq summary { cursor: pointer; list-style: none; padding: 18px 36px 18px 4px; position: relative; font-weight: 700; color: var(--text); }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; position: absolute; right: 8px; top: 14px; font: 400 24px/1 var(--mono); color: var(--accent); }
+  .faq details[open] summary::after { content: "−"; }
+  .faq details p { margin: 0 4px 18px; color: var(--body); max-width: 46em; }
+  .points { list-style: none; padding: 0; margin: 22px 0 0; display: grid; gap: 8px; }
+  .points li { color: var(--body); padding-left: 20px; position: relative; }
+  .points li::before { content: ""; position: absolute; left: 0; top: 0.72em; width: 8px; height: 2px; background: var(--accent); }
+
+  /* more */
+  .more { padding: 120px 0 0; }
+  .more h2 { font-size: clamp(22px, 3vw, 28px); margin: 0 0 24px; }
+  .more ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); border-top: 1px solid var(--rule); }
+  .more li { padding: 18px 4px; border-bottom: 1px solid var(--rule); color: var(--body); }
+  .more li strong { display: block; color: var(--text); font-size: 16px; margin-bottom: 2px; }
+
+  .onom {
+    display: grid; grid-template-columns: 96px 1fr; gap: 22px; align-items: center;
+    background: #111113; border: 1px solid #3a4a12; border-radius: 16px; padding: 26px; margin-top: 36px;
+  }
+  .onom img { width: 96px; height: 96px; border-radius: 22px; }
+  .onom h3 { margin: 0 0 6px; font-size: 21px; letter-spacing: 0.06em; }
+  .onom p { margin: 0 0 10px; color: #d0d0d4; }
+  .onom a { color: #c8ff3c; font-weight: 700; }
+
+  dl.spec { display: grid; grid-template-columns: max-content 1fr; gap: 10px 28px; margin: 0; }
+  dl.spec dt { color: var(--muted); }
+  dl.spec dd { margin: 0; }
+
+  footer { margin-top: 120px; border-top: 1px solid var(--rule); padding: 32px 0 48px; color: var(--muted); font-size: 13px; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+  footer a { color: var(--muted); }
+  footer .legal { flex-basis: 100%; }
+
+  @media (max-width: 860px) {
+    .hero-grid, .split, .shader { grid-template-columns: 1fr; }
+    .split { gap: 28px; }
+    .split.flip > :first-child { order: 0; }
+    .show, .more { padding-top: 88px; }
+    .viewer { min-height: 0; aspect-ratio: 16 / 10; }
+  }
+  @media (max-width: 640px) {
+    .hero { padding-top: 40px; }
+    .more ul { grid-template-columns: 1fr; }
+    .code { font-size: 12px; padding: 16px; }
+    .lib { grid-template-columns: 1fr 1fr; padding: 16px; gap: 16px 10px; }
+    .lib span { font-size: 11px; padding: 7px 8px; line-height: 1.3; }
+    .onom { grid-template-columns: 1fr; }
+    .onom img { width: 72px; height: 72px; border-radius: 16px; }
+    dl.spec { grid-template-columns: 1fr; gap: 2px; }
+    dl.spec dd { margin-bottom: 10px; }
+  }
+  .nav-apps {
+    display: flex; align-items: center; gap: 7px; padding: 6px 12px 6px 10px; border-radius: 999px;
+    border: 1px solid var(--rule); color: var(--muted); font-size: 13px; font-weight: 600; text-decoration: none;
+  }
+  .nav-apps:hover { color: var(--text); border-color: var(--muted); }
+  .nav-apps svg { width: 13px; height: 13px; fill: currentColor; }
+  @media (max-width: 640px) { .nav-apps { padding: 8px; } .nav-apps span { display: none !important; } }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#"><img src="../assets/mirage-icon.png" alt="">Mirage Composer</a>
+    <div class="spacer"></div>
+    <a class="nav-apps" href="../"><svg viewBox="0 0 14 14" aria-hidden="true"><rect x="1" y="1" width="5" height="5" rx="1.2"/><rect x="8" y="1" width="5" height="5" rx="1.2"/><rect x="1" y="8" width="5" height="5" rx="1.2"/><rect x="8" y="8" width="5" height="5" rx="1.2"/></svg><span lang="ja">アプリ一覧</span><span lang="en">All apps</span></a>
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <button type="button" data-set-lang="ja" aria-pressed="true">日本語</button>
+      <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <img class="icon" src="../assets/mirage-icon.png" alt="Mirage Composer のアイコン">
+        <h1>Mirage Composer</h1>
+        <p class="lead" lang="ja">パッチをつなぐと、その場で映像が動く。<br>Mac・iPhone・iPad のための、ノードベースの映像づくり。</p>
+        <p class="lead" lang="en">Wire up patches and the picture moves, right away.<br>Node-based visuals for Mac, iPhone and iPad.</p>
+        <div class="cta">
+          <a class="btn primary" href="https://apps.apple.com/jp/app/mirage-composer/id6820437589" lang="ja">App Store で無料入手</a>
+          <a class="btn primary" href="https://apps.apple.com/app/mirage-composer/id6820437589" lang="en">Get it free on the App Store</a>
+          <a class="btn" href="https://github.com/onomuta/MetalComposer">GitHub</a>
+        </div>
+        <p class="note" lang="ja">1度の入手で、Mac と iPhone・iPad の両方に。</p>
+        <p class="note" lang="en">One download for Mac, iPhone and iPad.</p>
+      </div>
+
+      <figure class="graph" aria-label="ノードグラフの例: LFO と Audio Spectrum が Sprite につながり、ビューアに描かれる">
+        <svg viewBox="0 0 560 300" role="img">
+          <defs>
+            <linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#ff375f"/><stop offset="1" stop-color="#a58bff"/></linearGradient>
+            <pattern id="dots" width="16" height="16" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#1f1b33"/></pattern>
+          </defs>
+          <rect width="560" height="300" fill="url(#dots)"/>
+
+          <!-- wires -->
+          <path class="wire flow" stroke="#5ac8fa" d="M150 72 C 190 72, 190 118, 230 118"/>
+          <path class="wire flow" stroke="#5ac8fa" d="M150 196 C 190 196, 190 140, 230 140"/>
+          <path class="wire" stroke="#ff375f" d="M150 230 C 190 230, 190 162, 230 162"/>
+          <path class="wire flow" stroke="#a58bff" d="M340 128 C 360 128, 360 150, 380 150"/>
+
+          <!-- LFO -->
+          <rect x="20" y="40" width="130" height="58" rx="8" fill="#1d1934" stroke="#3a3366"/>
+          <rect x="20" y="40" width="130" height="20" rx="8" fill="#2a2450"/>
+          <text x="30" y="54">LFO</text>
+          <text class="port" x="30" y="84">Period 2.0</text>
+          <circle cx="150" cy="72" r="4" fill="#5ac8fa"/>
+
+          <!-- Audio Spectrum -->
+          <rect x="20" y="150" width="130" height="96" rx="8" fill="#1d1934" stroke="#3a3366"/>
+          <rect x="20" y="150" width="130" height="20" rx="8" fill="#2a2450"/>
+          <text x="30" y="164">Audio Spectrum</text>
+          <text class="port" x="30" y="200">Bass</text>
+          <text class="port" x="30" y="234">Color</text>
+          <circle cx="150" cy="196" r="4" fill="#5ac8fa"/>
+          <circle cx="150" cy="230" r="4" fill="#ff375f"/>
+
+          <!-- Sprite -->
+          <rect x="230" y="96" width="110" height="80" rx="8" fill="#1d1934" stroke="#a58bff"/>
+          <rect x="230" y="96" width="110" height="20" rx="8" fill="#4a3a9a"/>
+          <text x="240" y="110">Sprite</text>
+          <text class="port" x="240" y="122">Rotation</text>
+          <text class="port" x="240" y="144">Size</text>
+          <text class="port" x="240" y="166">Color</text>
+          <circle cx="230" cy="118" r="4" fill="#5ac8fa"/>
+          <circle cx="230" cy="140" r="4" fill="#5ac8fa"/>
+          <circle cx="230" cy="162" r="4" fill="#ff375f"/>
+          <circle cx="340" cy="128" r="4" fill="#a58bff"/>
+
+          <!-- viewer -->
+          <rect x="380" y="60" width="164" height="180" rx="10" fill="#000" stroke="#2e2850"/>
+          <text class="port" x="390" y="78">Viewer</text>
+          <g class="viewer-anim">
+            <rect x="430" y="110" width="80" height="80" rx="6" fill="url(#g1)" opacity="0.95"/>
+            <rect x="445" y="125" width="50" height="50" rx="4" fill="#000" opacity="0.55"/>
+          </g>
+        </svg>
+      </figure>
+    </div>
+  </section>
+
+  <section class="show" id="nodes">
+    <div class="wrap split">
+      <div>
+        <div class="tag">NODES</div>
+        <h2 lang="ja">コードを書かずに、<br>つないで作る</h2>
+        <h2 lang="en">No code.<br>Just connect.</h2>
+        <p lang="ja">図形、値、画像、音。パッチを置いて線でつなげば、それがそのまま映像になります。</p>
+        <p lang="en">Shapes, values, images, sound. Drop in patches, draw a wire, and that's your picture.</p>
+        <ul class="points" lang="ja">
+          <li>出力から入力へドラッグしてつなぐ</li>
+          <li>つないだ瞬間、ビューアに反映</li>
+          <li>ポートに触れると、今の値が見える</li>
+          <li>⌘G でマクロにまとめて、何度でも使う</li>
+        </ul>
+        <ul class="points" lang="en">
+          <li>Drag from an output to an input</li>
+          <li>The viewer updates the moment you connect</li>
+          <li>Hover a port to see its current value</li>
+          <li>Group with ⌘G and reuse as a macro</li>
+        </ul>
+      </div>
+      <div class="lib" aria-label="パッチの例"><div class="lib-col"><div class="lib-head" style="--c:#a58bff">RENDER</div><span style="--c:#a58bff">Sprite</span><span style="--c:#a58bff">Billboard</span><span style="--c:#a58bff">Cube</span><span style="--c:#a58bff">Sphere</span><span style="--c:#a58bff">Text Image</span><span style="--c:#a58bff">Particle System</span></div><div class="lib-col"><div class="lib-head" style="--c:#5ac8fa">VALUE</div><span style="--c:#5ac8fa">LFO</span><span style="--c:#5ac8fa">Interpolation</span><span style="--c:#5ac8fa">Random</span><span style="--c:#5ac8fa">Math Expression</span><span style="--c:#5ac8fa">Smooth</span><span style="--c:#5ac8fa">Map Range</span></div><div class="lib-col"><div class="lib-head" style="--c:#ff9f0a">IMAGE</div><span style="--c:#ff9f0a">Image Importer</span><span style="--c:#ff9f0a">Render In Image</span><span style="--c:#ff9f0a">Image Crop</span><span style="--c:#ff9f0a">Tile</span><span style="--c:#ff9f0a">Outline</span></div><div class="lib-col"><div class="lib-head" style="--c:#ff375f">AUDIO</div><span style="--c:#ff375f">Audio Input</span><span style="--c:#ff375f">Audio Spectrum</span></div><div class="lib-col"><div class="lib-head" style="--c:#30d158">STRUCTURE</div><span style="--c:#30d158">Macro</span><span style="--c:#30d158">Iterator</span><span style="--c:#30d158">3D Transformation</span><span style="--c:#30d158">Structure Maker</span><span style="--c:#30d158">Queue</span><span style="--c:#30d158">Multiplexer</span></div></div>
+    </div>
+  </section>
+
+  <section class="show">
+    <div class="wrap split">
+      <div>
+        <div class="tag">TIME · EXPORT</div>
+        <h2 lang="ja">止めても戻しても、<br>同じ時刻は同じ絵</h2>
+        <h2 lang="en">Pause it, rewind it —<br>same moment, same frame</h2>
+        <p lang="ja">パーティクルまで時間の関数で動くので、巻き戻しもスクラブも自在。書き出しもコマ落ちしません。</p>
+        <p lang="en">Even particles are a function of time, so you can rewind and scrub freely — and exports never drop a frame.</p>
+      </div>
+      <div class="codecs">
+        <div><b>ProRes 4444</b><span lang="ja">アルファ付き</span><span lang="en">with alpha</span></div>
+        <div><b>ProRes 422 HQ</b><span lang="ja">編集向け</span><span lang="en">for editing</span></div>
+        <div><b>HEVC</b><span lang="ja">軽く高画質に</span><span lang="en">small and sharp</span></div>
+        <div><b>H.264</b><span lang="ja">どこでも再生</span><span lang="en">plays anywhere</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="more">
+    <div class="wrap">
+      <h2 lang="ja">ほかにも</h2>
+      <h2 lang="en">And also</h2>
+      <ul lang="ja">
+        <li><strong>図形・文字・3D・パーティクル</strong>Sprite、Cube、Sphere、Text Image、Particle System など。</li>
+        <li><strong>繰り返しとフィードバック</strong>Iterator で何個も並べ、Render In Image で前のフレームを重ねる。</li>
+        <li><strong>音に反応</strong>マイクの低音・中音・高音で動かす。録音も送信もしない。</li>
+        <li><strong>大きな画面へ</strong>iPhone・iPad は外部ディスプレイや AirPlay へ。Mac はフルスクリーン。</li>
+        <li><strong>どの端末でも同じ作品</strong>.mcomp を AirDrop や iCloud Drive で行き来。</li>
+        <li><strong>AI と作る</strong>Mirage MCP で、Claude などの AI が作品を組み立てる。</li>
+      </ul>
+      <ul lang="en">
+        <li><strong>Shapes, text, 3D, particles</strong>Sprite, Cube, Sphere, Text Image, Particle System and more.</li>
+        <li><strong>Iteration and feedback</strong>Repeat with Iterator, and layer in the last frame with Render In Image.</li>
+        <li><strong>Sound reactive</strong>Drive it with bass, mid and treble. Nothing is recorded or sent.</li>
+        <li><strong>On the big screen</strong>External displays and AirPlay on iPhone and iPad; full screen on Mac.</li>
+        <li><strong>Same file everywhere</strong>Move .mcomp files over AirDrop or iCloud Drive.</li>
+        <li><strong>Build with AI</strong>Mirage MCP lets AI assistants like Claude build compositions.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="show">
+    <div class="wrap">
+      <div class="tag">METAL SHADER</div>
+      <h2 lang="ja">もっと踏み込むなら、<br>シェーダーも</h2>
+      <h2 lang="en">Want to go further?<br>Write a shader.</h2>
+      <p lang="ja">コードを書きたいときは Metal Shader パッチに <code>mainImage</code> を。その場でコンパイルして、ほかのパッチとつなげます。</p>
+      <p lang="en">When you want code, write <code>mainImage</code> in a Metal Shader patch. It compiles as you type and wires into everything else.</p>
+      <div class="shader">
+<pre class="code"><span class="t">float4</span> <span class="n">mainImage</span>(<span class="t">float2</span> uv, <span class="k">constant</span> <span class="t">Uniforms</span>&amp; u,
+                 <span class="t">texture2d</span>&lt;<span class="t">float</span>&gt; image, <span class="t">sampler</span> s) {
+    <span class="t">float2</span> p = (uv - <span class="n">0.5</span>) * <span class="t">float2</span>(u.resolution.x / u.resolution.y, <span class="n">1.0</span>) * <span class="n">3.0</span>;
+    <span class="t">float</span>  t = u.time * (<span class="n">0.4</span> + u.params.x);
+    <span class="t">float</span>  v = sin(p.x + t) + sin(p.y * <span class="n">1.3</span> - t * <span class="n">1.1</span>)
+             + sin(length(p) * <span class="n">2.0</span> - t * <span class="n">1.7</span>);
+    <span class="t">float3</span> col = <span class="n">0.5</span> + <span class="n">0.5</span> * cos(v + <span class="t">float3</span>(<span class="n">0.0</span>, <span class="n">2.0</span>, <span class="n">4.0</span>));
+    <span class="k">return</span> <span class="t">float4</span>(col * u.color.rgb, u.color.a);
+}</pre>
+        <figure class="viewer">
+          <canvas id="plasma" aria-label="左のシェーダーを描いた例"></canvas>
+          <figcaption>Viewer</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="show" id="onomflow">
+    <div class="wrap">
+      <div class="tag">ONOM FLOW</div>
+      <h2 lang="ja">作品を、そのまま VJ に</h2>
+      <h2 lang="en">From composition to VJ set</h2>
+      <p lang="ja">作品は VJ アプリ ONOM FLOW のジェネ素材になります。<strong>ONOM FLOW Input</strong> パッチを置けば、BPM・拍・色・文字を受け取れます。</p>
+      <p lang="en">Compositions play as generative clips in ONOM FLOW. Add an <strong>ONOM FLOW Input</strong> patch to receive BPM, beat, colors and text.</p>
+      <div class="onom">
+        <img src="../assets/onomflow-icon.png" alt="ONOM FLOW のアイコン">
+        <div>
+          <h3>ONOM FLOW</h3>
+          <p lang="ja">Mac専用のVJアプリ。Mac App Store で近日公開。</p>
+          <p lang="en">A VJ app for Mac. Coming soon to the Mac App Store.</p>
+          <a href="../onomflow/" lang="ja">ONOM FLOW について →</a>
+          <a href="../onomflow/" lang="en">About ONOM FLOW →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="more" id="faq">
+    <div class="wrap">
+      <h2 lang="ja">よくある質問</h2>
+      <h2 lang="en">Questions</h2>
+      <div class="faq" lang="ja">
+        <details><summary>本当に無料ですか？</summary><p>はい。アプリ内の課金もありません。1度入手すれば、Mac と iPhone・iPad の両方で使えます。</p></details>
+        <details><summary>コードを書けなくても使えますか？</summary><p>使えます。パッチを置いて線でつなぐだけで作れます。まずは File › Demos のサンプルを開いて、中のつながりを見てみてください。</p></details>
+        <details><summary>MIDI・OSC・Syphon は使えますか？</summary><p>今は使えません。音にはマイクから反応できます。</p></details>
+        <details><summary>作品を VJ で使うには？</summary><p>保存した作品（.mcomp）を ONOM FLOW の素材フォルダに入れると、ジェネ素材として8レイヤーに出せます。動画に書き出して、ほかのソフトで使うこともできます。</p></details>
+      </div>
+      <div class="faq" lang="en">
+        <details><summary>Is it really free?</summary><p>Yes, with no in-app purchases. One download covers Mac, iPhone and iPad.</p></details>
+        <details><summary>Do I need to code?</summary><p>No. Drop in patches and connect them. Start by opening a sample from File › Demos and looking at how it's wired.</p></details>
+        <details><summary>MIDI, OSC or Syphon?</summary><p>Not at the moment. Compositions can react to sound through the microphone.</p></details>
+        <details><summary>How do I use compositions for VJing?</summary><p>Put saved compositions (.mcomp) in ONOM FLOW's media folder and play them as generative clips across eight layers. You can also export them as movies for other software.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="more" id="requirements">
+    <div class="wrap">
+      <h2 lang="ja">動作環境</h2>
+      <h2 lang="en">Requirements</h2>
+      <dl class="spec" lang="ja">
+        <dt>Mac</dt><dd>macOS 14 Sonoma 以降</dd>
+        <dt>iPhone・iPad</dt><dd>iOS・iPadOS 17 以降</dd>
+        <dt>価格</dt><dd>無料</dd>
+      </dl>
+      <dl class="spec" lang="en">
+        <dt>Mac</dt><dd>macOS 14 Sonoma or later</dd>
+        <dt>iPhone &amp; iPad</dt><dd>iOS / iPadOS 17 or later</dd>
+        <dt>Price</dt><dd>Free</dd>
+      </dl>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Takao Onomura</span>
+    <a href="https://onomuta.github.io/MetalComposer/support/" lang="ja">サポート</a>
+    <a href="https://onomuta.github.io/MetalComposer/support/" lang="en">Support</a>
+    <a href="https://onomuta.github.io/MetalComposer/privacy/" lang="ja">プライバシーポリシー</a>
+    <a href="https://onomuta.github.io/MetalComposer/privacy/" lang="en">Privacy Policy</a>
+    <a href="../onomflow/">ONOM FLOW</a>
+    <a href="../" lang="ja">アプリ一覧</a>
+    <a href="../" lang="en">All apps</a>
+    <span class="legal" lang="ja">旧名は Metal Composer です。Apple Inc. とは関係のない、個人による非公式のプロジェクトです。Metal、Quartz Composer、macOS、AirPlay は Apple Inc. の商標です。</span>
+    <span class="legal" lang="en">Formerly Metal Composer. An independent project, not affiliated with Apple Inc. Metal, Quartz Composer, macOS and AirPlay are trademarks of Apple Inc.</span>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    var buttons = document.querySelectorAll("[data-set-lang]");
+    function apply(lang) {
+      root.setAttribute("data-lang", lang);
+      root.setAttribute("lang", lang);
+      buttons.forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.setLang === lang)); });
+    }
+    var saved = null;
+    try { saved = localStorage.getItem("lang"); } catch (e) {}
+    apply(saved || ((navigator.language || "ja").toLowerCase().startsWith("ja") ? "ja" : "en"));
+    buttons.forEach(function (b) {
+      b.addEventListener("click", function () {
+        apply(b.dataset.setLang);
+        try { localStorage.setItem("lang", b.dataset.setLang); } catch (e) {}
+      });
+    });
+  })();
+
+  // The shader shown on the page, ported to WebGL so the viewer next to it is live.
+  (function () {
+    var canvas = document.getElementById("plasma");
+    var gl = canvas && canvas.getContext("webgl");
+    if (!gl) return;
+    var fs = [
+      "precision mediump float;",
+      "uniform vec2 res; uniform float time;",
+      "void main() {",
+      "  vec2 uv = gl_FragCoord.xy / res;",
+      "  vec2 p = (uv - 0.5) * vec2(res.x / res.y, 1.0) * 3.0;",
+      "  float t = time * 0.7;",
+      "  float v = sin(p.x + t) + sin(p.y * 1.3 - t * 1.1) + sin(length(p) * 2.0 - t * 1.7);",
+      "  vec3 col = 0.5 + 0.5 * cos(v + vec3(0.0, 2.0, 4.0));",
+      "  gl_FragColor = vec4(col, 1.0);",
+      "}"
+    ].join("\n");
+    var vs = "attribute vec2 a; void main() { gl_Position = vec4(a, 0.0, 1.0); }";
+    function sh(type, src) { var s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); return s; }
+    var prog = gl.createProgram();
+    gl.attachShader(prog, sh(gl.VERTEX_SHADER, vs));
+    gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, fs));
+    gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return;
+    gl.useProgram(prog);
+    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+    var loc = gl.getAttribLocation(prog, "a");
+    gl.enableVertexAttribArray(loc);
+    gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    var uRes = gl.getUniformLocation(prog, "res"), uTime = gl.getUniformLocation(prog, "time");
+    var still = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var visible = true, running = false, start = performance.now();
+    function kick() { if (!running) { running = true; requestAnimationFrame(frame); } }
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (e) { visible = e[0].isIntersecting; if (visible && !still) kick(); }).observe(canvas);
+    }
+    function frame(now) {
+      running = false;
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var w = Math.round(canvas.clientWidth * dpr), h = Math.round(canvas.clientHeight * dpr);
+      if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; }
+      gl.viewport(0, 0, w, h);
+      gl.uniform2f(uRes, w, h);
+      gl.uniform1f(uTime, ((now || start) - start) / 1000 + 4.0);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+      if (visible && !still) kick();
+    }
+    kick();
+  })();
+</script>
+</body>
+</html>

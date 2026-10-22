@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="ja" data-lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MIDISimulator — 実機が無くても MIDI Learn を</title>
+<meta name="description" content="Launchpad と Launch Control XL MK2 を画面上で再現し、実機と同じ MIDI を仮想の機器から送る macOS アプリ。無料・オープンソース。">
+<meta property="og:title" content="MIDISimulator">
+<meta property="og:description" content="実機が無くても、MIDI Learn を進められる。Launchpad と Launch Control XL MK2 を画面上で再現。無料・オープンソース。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://onomuta.github.io/midisimulator/">
+<meta property="og:image" content="https://onomuta.github.io/assets/og-midisimulator.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://onomuta.github.io/midisimulator/">
+<link rel="icon" href="../assets/midisimulator-icon.png">
+<style>
+  :root {
+    --bg: #0d0f13;
+    --panel: #161a21;
+    --panel-2: #1e232c;
+    --rule: #2a303b;
+    --text: #f2f4f7;
+    --body: #c3c9d3;
+    --muted: #8b93a1;
+    --accent: #4ade80;
+    --mono: ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.75 -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Helvetica Neue", sans-serif;
+  }
+  html[data-lang="ja"] [lang="en"], html[data-lang="en"] [lang="ja"] { display: none !important; }
+  a { color: var(--accent); }
+  img { display: block; max-width: 100%; height: auto; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+
+  header.top {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(13, 15, 19, 0.82);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule);
+  }
+  header.top .wrap { display: flex; align-items: center; gap: 12px; height: 56px; }
+  .brand { display: flex; align-items: center; gap: 8px; font-weight: 700; text-decoration: none; color: var(--text); }
+  .brand img { width: 32px; height: 32px; }
+  .spacer { flex: 1; }
+  .lang-toggle { display: flex; border: 1px solid var(--rule); border-radius: 999px; overflow: hidden; font: 600 12px/1 var(--mono); }
+  .lang-toggle button { background: none; border: 0; color: var(--muted); padding: 7px 11px; cursor: pointer; font: inherit; }
+  .lang-toggle button[aria-pressed="true"] { background: var(--text); color: var(--bg); }
+
+  .hero { padding: 64px 0 0; text-align: center; position: relative; overflow: hidden; }
+  .hero::before {
+    content: ""; position: absolute; inset: -30% -10% auto; height: 640px; z-index: -1;
+    background: radial-gradient(closest-side, rgba(74, 222, 128, 0.14), transparent 70%);
+  }
+  .hero .icon { width: 112px; height: 112px; margin: 0 auto; }
+  .hero h1 { font-size: clamp(40px, 7vw, 72px); line-height: 1.05; margin: 14px 0 18px; letter-spacing: -0.01em; }
+  .hero p.lead { font-size: clamp(17px, 2.3vw, 21px); color: #d9dee6; margin: 0 auto; max-width: 680px; }
+  .cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 30px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 13px 22px; border-radius: 999px; font-weight: 700; text-decoration: none;
+    border: 1px solid var(--rule); color: var(--text); background: var(--panel);
+  }
+  .btn.primary { background: var(--accent); color: #06210f; border-color: var(--accent); }
+  .note { color: var(--muted); font-size: 14px; margin-top: 14px; }
+  .shot { margin: 44px auto 0; }
+  .shot img { border-radius: 14px; border: 1px solid var(--rule); box-shadow: 0 30px 80px rgba(0,0,0,0.6); }
+
+  .show { padding: 120px 0 0; }
+  .tag { font: 700 12px/1 var(--mono); letter-spacing: 0.16em; color: var(--accent); }
+  .show h2, .more h2 { font-size: clamp(28px, 4.4vw, 44px); line-height: 1.2; margin: 14px 0 14px; }
+  .show p { color: var(--body); font-size: 17px; margin: 0; max-width: 34em; }
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+  .split.flip > :first-child { order: 2; }
+  .points { list-style: none; padding: 0; margin: 22px 0 0; display: grid; gap: 8px; }
+  .points li { color: var(--body); padding-left: 20px; position: relative; }
+  .points li::before { content: ""; position: absolute; left: 0; top: 0.72em; width: 8px; height: 2px; background: var(--accent); }
+
+  .models { display: grid; gap: 10px; }
+  .models div { padding: 16px 20px; border-radius: 12px; background: var(--panel); border: 1px solid var(--rule); }
+  .models b { display: block; font-size: 17px; }
+  .models code { font: 13px var(--mono); color: var(--muted); word-break: break-all; }
+
+  /* LED demo */
+  .demo { background: var(--panel); border: 1px solid var(--rule); border-radius: 18px; padding: 18px; }
+  .grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; }
+  .grid button {
+    aspect-ratio: 1; border-radius: 7px; border: 1px solid #343b47; background: #232933; cursor: pointer;
+    font: 600 10px/1 var(--mono); color: #7d8696; transition: background .12s, box-shadow .12s;
+  }
+  .grid button.lit { color: rgba(0,0,0,0.55); border-color: transparent; }
+  .log { display: grid; grid-template-columns: max-content 1fr; gap: 4px 14px; margin-top: 14px; font: 13px/1.5 var(--mono); color: var(--body); }
+  .log .k { color: var(--muted); }
+  .show .demo-note { color: var(--muted); font-size: 12px; margin: 10px 2px 0; max-width: none; }
+
+  .flow { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 10px; align-items: center; margin-top: 36px; }
+  .flow div { padding: 18px; border-radius: 12px; background: var(--panel); border: 1px solid var(--rule); text-align: center; }
+  .flow b { display: block; font-size: 16px; }
+  .flow span { color: var(--muted); font-size: 13px; }
+  .flow i { color: var(--accent); font-style: normal; font-size: 22px; }
+  .flow a { color: inherit; }
+
+  .more { padding: 120px 0 0; }
+  .more h2 { font-size: clamp(22px, 3vw, 28px); margin: 0 0 24px; }
+  .more ul.cav { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); border-top: 1px solid var(--rule); }
+  .more ul.cav li { padding: 18px 4px; border-bottom: 1px solid var(--rule); color: var(--body); }
+  .more ul.cav li strong { display: block; color: var(--text); margin-bottom: 2px; }
+  dl.spec { display: grid; grid-template-columns: max-content 1fr; gap: 10px 28px; margin: 0; }
+  dl.spec dt { color: var(--muted); }
+  dl.spec dd { margin: 0; }
+
+  footer { margin-top: 120px; border-top: 1px solid var(--rule); padding: 32px 0 48px; color: var(--muted); font-size: 13px; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+  footer a { color: var(--muted); }
+  footer .legal { flex-basis: 100%; }
+
+  @media (max-width: 860px) {
+    .split { grid-template-columns: 1fr; gap: 32px; }
+    .split.flip > :first-child { order: 0; }
+    .show, .more { padding-top: 88px; }
+    .flow { grid-template-columns: 1fr; }
+    .flow i { transform: rotate(90deg); justify-self: center; }
+  }
+  @media (max-width: 640px) {
+    .hero { padding-top: 40px; }
+      .grid { gap: 4px; }
+    .more ul.cav { grid-template-columns: 1fr; }
+    dl.spec { grid-template-columns: 1fr; gap: 2px; }
+    dl.spec dd { margin-bottom: 10px; }
+  }
+  .nav-apps {
+    display: flex; align-items: center; gap: 7px; padding: 6px 12px 6px 10px; border-radius: 999px;
+    border: 1px solid var(--rule); color: var(--muted); font-size: 13px; font-weight: 600; text-decoration: none;
+  }
+  .nav-apps:hover { color: var(--text); border-color: var(--muted); }
+  .nav-apps svg { width: 13px; height: 13px; fill: currentColor; }
+  @media (max-width: 640px) { .nav-apps { padding: 8px; } .nav-apps span { display: none !important; } }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#"><img src="../assets/midisimulator-icon.png" alt="">MIDISimulator</a>
+    <div class="spacer"></div>
+    <a class="nav-apps" href="../"><svg viewBox="0 0 14 14" aria-hidden="true"><rect x="1" y="1" width="5" height="5" rx="1.2"/><rect x="8" y="1" width="5" height="5" rx="1.2"/><rect x="1" y="8" width="5" height="5" rx="1.2"/><rect x="8" y="8" width="5" height="5" rx="1.2"/></svg><span lang="ja">アプリ一覧</span><span lang="en">All apps</span></a>
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <button type="button" data-set-lang="ja" aria-pressed="true">日本語</button>
+      <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <img class="icon" src="../assets/midisimulator-icon.png" alt="MIDISimulator のアイコン">
+      <h1>MIDISimulator</h1>
+      <p class="lead" lang="ja">実機が無くても、MIDI Learn を進められる。<br>Launchpad と Launch Control XL MK2 を画面上で再現し、実機と同じ MIDI を、実機と同じ名前の仮想の機器から送る Mac のアプリ。</p>
+      <p class="lead" lang="en">MIDI Learn without the hardware.<br>A Mac app that recreates Launchpad and Launch Control XL MK2 on screen and sends the same MIDI as the real thing, from virtual devices with the same names.</p>
+      <div class="cta">
+        <a class="btn primary" href="https://github.com/onomuta/MIDISimulator/releases/latest" lang="ja">無料でダウンロード</a>
+        <a class="btn primary" href="https://github.com/onomuta/MIDISimulator/releases/latest" lang="en">Download free</a>
+        <a class="btn" href="https://github.com/onomuta/MIDISimulator">GitHub</a>
+      </div>
+    </div>
+    <figure class="shot wrap">
+      <img src="../assets/midisimulator-window.jpg" width="2118" height="1114" alt="MIDISimulator のウィンドウ。左に Launchpad の 8×8 のパッド、右に Launch Control XL MK2 のノブ・フェーダー・ボタン">
+    </figure>
+  </section>
+
+  <section class="show">
+    <div class="wrap split">
+      <div>
+        <div class="tag">DEVICES</div>
+        <h2 lang="ja">4つの機種を、<br>実機と同じ名前で</h2>
+        <h2 lang="en">Four devices,<br>with their real names</h2>
+        <p lang="ja">起動すると、2台分の仮想の機器がすぐに現れます。IAC ドライバなどの設定は要りません。Launchpad は画面の上で機種を切り替えられます。</p>
+        <p lang="en">Launch it and two virtual devices appear right away — no IAC Driver setup. Switch the Launchpad model at the top of the window.</p>
+        <ul class="points" lang="ja">
+          <li>ボタン・パッドは押している間だけ押したまま</li>
+          <li>ノブとフェーダーは上下にドラッグ</li>
+          <li>ポート名は書き換えて、手元の実機に合わせられる</li>
+        </ul>
+        <ul class="points" lang="en">
+          <li>Buttons and pads stay down while you hold them</li>
+          <li>Drag knobs and faders up and down</li>
+          <li>Rename ports to match your own hardware</li>
+        </ul>
+      </div>
+      <div class="models">
+        <div><b>Launchpad Mini MK3</b><code>Launchpad Mini MK3 LPMiniMK3 MIDI Out</code></div>
+        <div><b lang="ja">Launchpad Pro（初代）</b><b lang="en">Launchpad Pro (original)</b><code>Launchpad Pro Standalone Port</code></div>
+        <div><b>Launchpad Pro MK3</b><code>Launchpad Pro MK3 LPProMK3 MIDI Out</code></div>
+        <div><b>Launch Control XL MK2</b><code>Launch Control XL</code></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="show">
+    <div class="wrap split flip">
+      <div>
+        <div class="tag">LED</div>
+        <h2 lang="ja">返ってきた LED も、<br>画面の色で分かる</h2>
+        <h2 lang="en">See the LEDs your app<br>sends back</h2>
+        <p lang="ja">相手のアプリが返す LED の信号を受け取って、ボタンの色に映します。点灯・点滅・明滅も見分けられます。最後に送った信号と受け取った信号は、パネルの下に出ます。</p>
+        <p lang="en">LED messages from your app light up the buttons on screen — solid, flashing or pulsing. The last message sent and received is shown under each panel.</p>
+      </div>
+      <div class="demo">
+        <div class="grid" id="grid" aria-label="Launchpad のパッド"></div>
+        <div class="log">
+          <span class="k" lang="ja">送信</span><span class="k" lang="en">Sent</span><span id="sent">—</span>
+          <span class="k" lang="ja">受信（LED）</span><span class="k" lang="en">Received (LED)</span><span id="recv">—</span>
+        </div>
+        <p class="demo-note" lang="ja">ページの上での再現です。パッドを押すと、送る信号と、相手のアプリが返す LED の例を表示します。</p>
+        <p class="demo-note" lang="en">A simulation in your browser. Press a pad to see the message sent and an example LED reply.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="show">
+    <div class="wrap">
+      <div class="tag">SWITCH TO HARDWARE</div>
+      <h2 lang="ja">覚えさせた割り当てが、<br>そのまま実機でも</h2>
+      <h2 lang="en">Mappings you learn<br>carry over to the real device</h2>
+      <p lang="ja">仮想の機器は実機と同じポート名なので、機器の名前で割り当てを見分けるアプリなら、ここで覚えさせた割り当てが実機でもそのまま効きます。実機を使うときは、スイッチで仮想の機器を切っておきます。</p>
+      <p lang="en">The virtual devices use the same port names as the hardware, so apps that tell devices apart by name keep your mappings when you plug in the real thing. Switch the virtual device off when you use the hardware.</p>
+      <div class="flow">
+        <div><b>MIDISimulator</b><span lang="ja">家で割り当てを作る</span><span lang="en">Map at home</span></div>
+        <i aria-hidden="true">→</i>
+        <div><b><a href="../onomflow/">ONOM FLOW</a></b><span lang="ja">などの VJ アプリ・DAW</span><span lang="en">or any VJ app or DAW</span></div>
+        <i aria-hidden="true">→</i>
+        <div><b lang="ja">実機</b><b lang="en">Hardware</b><span lang="ja">現場でそのまま使う</span><span lang="en">Use it as is at the venue</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="more" id="requirements">
+    <div class="wrap">
+      <h2 lang="ja">動作環境</h2>
+      <h2 lang="en">Requirements</h2>
+      <dl class="spec" lang="ja">
+        <dt>OS</dt><dd>macOS 15 Sequoia 以降</dd>
+        <dt>Mac</dt><dd>Apple シリコン搭載の Mac</dd>
+        <dt>価格</dt><dd>無料</dd>
+        <dt>入手</dt><dd><a href="https://github.com/onomuta/MIDISimulator/releases/latest">GitHub のリリース</a></dd>
+      </dl>
+      <dl class="spec" lang="en">
+        <dt>OS</dt><dd>macOS 15 Sequoia or later</dd>
+        <dt>Mac</dt><dd>A Mac with Apple silicon</dd>
+        <dt>Price</dt><dd>Free</dd>
+        <dt>Get it</dt><dd><a href="https://github.com/onomuta/MIDISimulator/releases/latest">GitHub Releases</a></dd>
+      </dl>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Takao Onomura</span>
+    <a href="https://github.com/onomuta/MIDISimulator/issues" lang="ja">不具合・要望</a>
+    <a href="https://github.com/onomuta/MIDISimulator/issues" lang="en">Issues</a>
+    <a href="../" lang="ja">アプリ一覧</a>
+    <a href="../" lang="en">All apps</a>
+    <span class="legal" lang="ja">Novation、Launchpad、Launch Control XL は Focusrite Audio Engineering Ltd. の商標です。このプロジェクトは同社とは関係がなく、同社から承認も支援も受けていません。製品名は、どの機器の信号を再現しているかを示すためだけに使っています。Mac、macOS は Apple Inc. の商標です。</span>
+    <span class="legal" lang="en">Novation, Launchpad and Launch Control XL are trademarks of Focusrite Audio Engineering Ltd. This project is not affiliated with, endorsed or sponsored by Focusrite. Product names are used only to identify which devices' messages are recreated. Mac and macOS are trademarks of Apple Inc.</span>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    var buttons = document.querySelectorAll("[data-set-lang]");
+    function apply(lang) {
+      root.setAttribute("data-lang", lang);
+      root.setAttribute("lang", lang);
+      buttons.forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.setLang === lang)); });
+    }
+    var saved = null;
+    try { saved = localStorage.getItem("lang"); } catch (e) {}
+    apply(saved || ((navigator.language || "ja").toLowerCase().startsWith("ja") ? "ja" : "en"));
+    buttons.forEach(function (b) {
+      b.addEventListener("click", function () {
+        apply(b.dataset.setLang);
+        try { localStorage.setItem("lang", b.dataset.setLang); } catch (e) {}
+      });
+    });
+  })();
+
+  // In-page simulation: pads use programmer-mode note numbers (10 × row + column, row 1 at the bottom).
+  (function () {
+    var grid = document.getElementById("grid"), sent = document.getElementById("sent"), recv = document.getElementById("recv");
+    var palette = [[5, "#ff4d4d"], [9, "#ffa13d"], [13, "#ffe14d"], [21, "#4ade80"], [37, "#36d6f0"], [45, "#4d7dff"], [53, "#d16bff"], [3, "#ffffff"]];
+    for (var row = 8; row >= 1; row--) {
+      for (var col = 1; col <= 8; col++) {
+        var b = document.createElement("button");
+        b.type = "button"; b.textContent = String(row * 10 + col); b.dataset.note = String(row * 10 + col);
+        grid.appendChild(b);
+      }
+    }
+    function press(b) {
+      var note = b.dataset.note;
+      sent.textContent = "Note " + note + "  ch1  vel 127";
+      var pick = palette[Math.floor(Math.random() * palette.length)];
+      if (b.classList.contains("lit")) {
+        b.classList.remove("lit"); b.style.background = ""; b.style.boxShadow = "";
+        recv.textContent = "Note " + note + "  ch1  vel 0";
+      } else {
+        b.classList.add("lit"); b.style.background = pick[1]; b.style.boxShadow = "0 0 14px " + pick[1] + "88";
+        recv.textContent = "Note " + note + "  ch1  vel " + pick[0];
+      }
+    }
+    grid.addEventListener("pointerdown", function (e) { if (e.target.dataset.note) press(e.target); });
+    grid.addEventListener("pointerup", function (e) {
+      if (e.target.dataset.note) sent.textContent = "Note " + e.target.dataset.note + "  ch1  vel 0";
+    });
+  })();
+</script>
+</body>
+</html>
