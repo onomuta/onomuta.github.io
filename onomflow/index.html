@@ -131,6 +131,14 @@
   .terms dt { font: 700 14px/1.75 var(--mono); color: var(--accent); }
   .terms dd { margin: 0; color: var(--body); }
   .price-note { color: var(--muted) !important; font-size: 13px; margin: 16px 0 0 !important; }
+  .dev-note { display: inline-block; max-width: 640px; margin: 22px auto 0; padding: 10px 16px; border-radius: 10px; border: 1px dashed #4a4a50; color: var(--muted); font-size: 13px; line-height: 1.6; }
+  /* Pre-release: dim everything below the hero. Remove class="preview" from <body> to show the page normally. */
+  body.preview .hero .shot,
+  body.preview .hero .why,
+  body.preview main > section:not(.hero) {
+    filter: blur(6px) brightness(0.35); pointer-events: none; user-select: none; -webkit-user-select: none;
+  }
+  body.preview .dev-note { color: var(--text); border-color: var(--accent); font-size: 14px; }
   .points { list-style: none; padding: 0; margin: 22px 0 0; display: grid; gap: 8px; }
   .points li { color: var(--body); padding-left: 20px; position: relative; }
   .points li::before { content: ""; position: absolute; left: 0; top: 0.72em; width: 8px; height: 2px; background: var(--accent); }
@@ -195,7 +203,7 @@
   @media (max-width: 640px) { .nav-apps { padding: 8px; } .nav-apps span { display: none !important; } }
 </style>
 </head>
-<body>
+<body class="preview">
 
 <header class="top">
   <div class="wrap">
@@ -222,6 +230,8 @@
       </div>
       <p class="note" lang="ja">無料版でも、期限なしで4レイヤー。5,000円の買い切りで8レイヤー。</p>
       <p class="note" lang="en">Four layers free, with no time limit. A one-time ¥5,000 purchase unlocks 8.</p>
+      <p class="dev-note" lang="ja">ONOM FLOW は現在開発中です。このページの説明や画面イメージは仮のもので、公開までに変わることがあります。</p>
+      <p class="dev-note" lang="en">ONOM FLOW is still in development. The descriptions and screenshots on this page are provisional and may change before release.</p>
     </div>
     <figure class="shot wrap">
       <img src="../assets/onomflow-live.jpg" width="2400" height="1620" alt="ONOM FLOW のライブ画面。上に8つのレイヤーと出力、下に素材ライブラリと共通の入力パネル。">
