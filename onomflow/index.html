@@ -360,12 +360,12 @@
       <h2 lang="ja">はじめかたは3ステップ</h2>
       <h2 lang="en">Three steps to start</h2>
       <ol class="steps" lang="ja">
-        <li><b>素材フォルダを選ぶ</b>はじめは書類フォルダの中の「VJ」。動画や静止画を入れておきます。</li>
+        <li><b>素材フォルダを作る</b>はじめて起動すると、書類フォルダに「ONOMFLOW」を作ります。動画や静止画を入れておきます。サンプルのジェネ素材も入っています。</li>
         <li><b>レイヤーを選んで、素材をクリック</b>選んだ素材が、そのレイヤーに入ります。</li>
         <li><b>出力先を選ぶ</b>HDMI でつないだディスプレイやプロジェクターを、上部バーの OUT から。</li>
       </ol>
       <ol class="steps" lang="en">
-        <li><b>Choose a media folder</b>It starts with the “VJ” folder in Documents. Put your videos and images there.</li>
+        <li><b>Create a media folder</b>On first launch, the app creates “ONOMFLOW” in Documents. Put your videos and images there. Sample generative clips are included.</li>
         <li><b>Select a layer, click a clip</b>The clip goes straight to that layer.</li>
         <li><b>Choose an output</b>Pick the display or projector connected over HDMI from OUT in the top bar.</li>
       </ol>
@@ -424,7 +424,7 @@
         <details><summary>音に反応しますか？</summary><p>音を解析する機能は今はありません。BPM をタップで合わせると、拍に合わせて Mirage Composer のジェネ素材を動かせます。</p></details>
         <details><summary>どんな合成ができますか？</summary><p>レイヤーごとに、加算・通常・乗算から選べます。</p></details>
         <details><summary>どんな ISF でも動きますか？</summary><p>ISF 2.0 に対応しています。ただし音声を入力にする ISF（audio・audioFFT）には値が渡りません。パスの多い重い ISF は、8レイヤーにかけると処理が追いつかないことがあります。</p></details>
-        <details><summary>画面は英語にできますか？</summary><p>今は日本語だけです。</p></details>
+        <details><summary>画面は英語にできますか？</summary><p>できます。Mac の言語に合わせて、日本語か英語で表示します。</p></details>
       </div>
       <div class="faq" lang="en">
         <details><summary>How much can it handle?</summary><p>In our tests on a MacBook Air (M4, 16 GB), eight layers of 1080p HAP played at 60 fps with no late frames (GPU 2.7 ms on average). With two effects on each of the eight layers it averaged about 10 ms, within the 16.7 ms frame budget. Results vary with your clips and effects.</p></details>
@@ -434,7 +434,7 @@
         <details><summary>Does it react to audio?</summary><p>There's no audio analysis yet. Tap in the BPM and Mirage Composer clips can move with the beat.</p></details>
         <details><summary>Which blend modes?</summary><p>Add, Normal and Multiply, chosen per layer.</p></details>
         <details><summary>Will any ISF work?</summary><p>ISF 2.0 is supported. ISFs that take audio input (audio, audioFFT) receive no values, and heavy multi-pass ISFs may not keep up across eight layers.</p></details>
-        <details><summary>Is the interface available in English?</summary><p>Not yet — it's Japanese only for now.</p></details>
+        <details><summary>Is the interface available in English?</summary><p>Yes. It follows your Mac's language: Japanese on a Mac set to Japanese, English otherwise.</p></details>
       </div>
 
       <h3 class="terms-title" lang="ja">用語</h3>
@@ -486,13 +486,14 @@
         <dt>Mac</dt><dd>Apple シリコン搭載の Mac</dd>
         <dt>素材</dt><dd>HAP（推奨）、H.264・HEVC・ProRes、JPEG・PNG、ISF、Mirage Composer の .mcomp</dd>
         <dt>MIDI</dt><dd>macOS で認識できるコントローラー</dd>
+        <dt>言語</dt><dd>日本語・英語（Mac の言語に合わせます）</dd>
       </dl>
       <dl class="spec" lang="en">
         <dt>OS</dt><dd>macOS 15 Sequoia or later</dd>
         <dt>Mac</dt><dd>A Mac with Apple silicon</dd>
         <dt>Media</dt><dd>HAP (recommended), H.264, HEVC, ProRes, JPEG, PNG, ISF and Mirage Composer .mcomp</dd>
         <dt>MIDI</dt><dd>Any controller macOS recognizes</dd>
-        <dt>Language</dt><dd>Japanese interface</dd>
+        <dt>Language</dt><dd>English and Japanese (follows your Mac’s language)</dd>
       </dl>
     </div>
   </section>

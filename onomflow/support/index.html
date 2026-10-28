@@ -25,7 +25,7 @@
 
 <section lang="ja">
   <h1>ONOM FLOW サポート</h1>
-  <p class="updated">2026年10月21日 更新</p>
+  <p class="updated">2026年10月28日 更新</p>
 
   <p>ONOM FLOW は、素材を8つのレイヤーへ次々と流し込んで映像を出す、Mac専用のVJアプリです。</p>
 
@@ -33,11 +33,12 @@
   <ul>
     <li>macOS 15 Sequoia 以降</li>
     <li>Apple シリコン搭載の Mac</li>
+    <li>画面の言語：日本語・英語（Mac の言語に合わせます）</li>
   </ul>
 
   <h2>はじめかた</h2>
   <ol>
-    <li><strong>素材フォルダを選ぶ。</strong>はじめは書類フォルダの中の「VJ」を使います。ほかのフォルダにするときは、設定の「素材」タブで選びます。</li>
+    <li><strong>素材フォルダを作る。</strong>はじめて起動すると、書類フォルダに「ONOMFLOW」を作るか聞かれます。「作成」を押すと、サンプルのジェネ素材を入れた素材フォルダができます。ほかのフォルダを使うときは、設定の「素材」タブで選びます。</li>
     <li><strong>レイヤーを選んで、素材をクリック。</strong>選んだ素材がそのレイヤーに入ります。映像が出ているレイヤーでは素材がレイヤーキューに入り（サムネイルに「次」と出ます）、alpha（不透明度）を0まで下げた瞬間に切り替わります。</li>
     <li><strong>出力先を選ぶ。</strong>上部バーの「OUT」から、つないだディスプレイを選びます。ディスプレイが無いときは「このMacのウィンドウ」で確かめられます。</li>
     <li><strong>保存する。</strong>ファイル › 保存。自動では保存しません。次に起動すると、最後に開いたセットが開きます。</li>
@@ -45,7 +46,7 @@
 
   <h2>よくある質問</h2>
   <h3>足した素材が一覧に出ません</h3>
-  <p>Finder から素材一覧へ落とすと、すぐに一覧へ出ます。Finder で素材フォルダへ直接足したときは、ファイル › 素材を読み直す を選んでください。</p>
+  <p>Finder から素材一覧へ落とすと、素材フォルダの「Imported」へ写して、すぐに一覧へ出します。Finder で素材フォルダへ直接足したときは、ファイル › 素材を読み直す（⌘R）を選んでください。</p>
   <h3>動画を HAP に変換するには</h3>
   <p>HAP 以外の動画もそのまま再生できますが、HAP にすると切り替えが速く、負荷も安定します。変換のしかたは <a href="../#hap">こちら</a>。アプリでは、動画を右クリックして「HAPへの変換について」でも確かめられます。</p>
   <h3>MIDIコントローラーを割り当てるには</h3>
@@ -64,37 +65,36 @@
 
 <section lang="en">
   <h1>ONOM FLOW Support</h1>
-  <p class="updated">Updated October 21, 2026</p>
+  <p class="updated">Updated October 28, 2026</p>
 
   <p>ONOM FLOW is a VJ app for Mac: pick a clip, send it to one of eight layers, and put the result on screen.</p>
-  <p class="callout">The app's interface is currently in Japanese only. Below, labels are shown as they appear in the app, with an English gloss.</p>
 
   <h2>Requirements</h2>
   <ul>
     <li>macOS 15 Sequoia or later</li>
     <li>A Mac with Apple silicon</li>
-    <li>Interface language: Japanese</li>
+    <li>Interface language: English and Japanese (follows your Mac’s language)</li>
   </ul>
 
   <h2>Getting started</h2>
   <ol>
-    <li><strong>Choose your media folder.</strong> The app starts with the “VJ” folder in Documents. To use another folder, choose it in the 「素材」 (Media) tab of Settings.</li>
-    <li><strong>Select a layer and click a clip.</strong> The clip goes to that layer. If the layer is showing, the clip goes into the Layer Queue (the thumbnail shows 「次」, “next”) and swaps in the moment you bring alpha (opacity) down to zero.</li>
-    <li><strong>Choose an output.</strong> Pick the connected display from “OUT” in the top bar. With no display attached, choose 「このMacのウィンドウ」 (a window on this Mac) to check the output.</li>
+    <li><strong>Create your media folder.</strong> On first launch, the app offers to create “ONOMFLOW” in Documents. Click Create to make it, with sample generative clips inside. To use another folder, choose it in the Media tab of Settings.</li>
+    <li><strong>Select a layer and click a clip.</strong> The clip goes to that layer. If the layer is showing, the clip goes into the Layer Queue (the thumbnail shows “Next”) and swaps in the moment you bring alpha (opacity) down to zero.</li>
+    <li><strong>Choose an output.</strong> Pick the connected display from “OUT” in the top bar. With no display attached, choose “This Mac’s Window” to check the output.</li>
     <li><strong>Save.</strong> File › Save. Nothing is saved automatically. The last set you opened opens again next time.</li>
   </ol>
 
   <h2>Questions</h2>
   <h3>A clip I added doesn't show up</h3>
-  <p>Files dropped from Finder onto the library appear right away. If you added files to the media folder in Finder, choose 「素材を読み直す」 (Reload Media) from the File menu.</p>
+  <p>Files dropped from Finder onto the clip list are copied into the “Imported” folder in your media folder and appear right away. If you added files to the media folder in Finder, choose File › Rescan Media (⌘R).</p>
   <h3>How do I convert videos to HAP?</h3>
-  <p>Other videos play as they are, but HAP switches faster and keeps the load steady. See <a href="../#hap">how to convert</a>, or right-click a video in the app and choose 「HAPへの変換について…」 (About converting to HAP).</p>
+  <p>Other videos play as they are, but HAP switches faster and keeps the load steady. See <a href="../#hap">how to convert</a>, or right-click a video in the app and choose “About Converting to HAP…”.</p>
   <h3>How do I map a MIDI controller?</h3>
-  <p>In the 「MIDI」 tab of Settings, select an action, press Learn and move a knob or press a button on your controller. Effect toggles and parameters are learned in the effect editor window. Mappings are saved with your set.</p>
+  <p>In the MIDI tab of Settings, select an action, press Learn and move a knob or press a button on your controller. Effect toggles and parameters are learned in the Effect Editor window. Mappings are saved with your set.</p>
   <h3>How do I add ISF effects?</h3>
-  <p>Put them in <code>~/Library/Application Support/ONOM FLOW/ISF</code> and choose 「素材を読み直す」 (Reload Media) from the File menu. You can also add your own ISF folders in the 「素材」 (Media) tab of Settings. ISF 2.0 is supported.</p>
+  <p>Put them in <code>~/Library/Application Support/ONOM FLOW/ISF</code> and choose File › Rescan Media (⌘R). You can also add your own ISF folders in the Media tab of Settings. ISF 2.0 is supported.</p>
   <h3>How do I unlock eight layers or restore my purchase?</h3>
-  <p>Click a locked layer (L5–L8), or use the 「購入」 (Purchase) tab in Settings to buy or restore. Purchases are tied to your Apple ID, so you can restore them on another Mac. Once purchased, eight layers stay unlocked even offline.</p>
+  <p>Click a locked layer (L5–L8), or use the Purchase tab in Settings to buy or restore. Purchases are tied to your Apple ID, so you can restore them on another Mac. Once purchased, eight layers stay unlocked even offline.</p>
   <h3>Does the free version expire?</h3>
   <p>No. Every feature works with up to four layers, with no time limit. Opening a set saved with eight layers on the free version keeps L5–L8 intact.</p>
 
