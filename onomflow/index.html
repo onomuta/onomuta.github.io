@@ -139,6 +139,13 @@
     filter: blur(6px) brightness(0.35); pointer-events: none; user-select: none; -webkit-user-select: none;
   }
   body.preview .dev-note { color: var(--text); border-color: var(--accent); font-size: 14px; }
+  .fxsel { margin-top: 26px; padding: 18px 20px; border-radius: 14px; background: var(--panel); border: 1px solid var(--rule); }
+  .fxsel b { display: block; font-size: 17px; margin-bottom: 6px; }
+  .show .fxsel p { font-size: 15px; max-width: none; }
+  .fxsel-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 14px; }
+  .fxsel-row span { font: 600 12px/1 var(--mono); padding: 8px 10px; border-radius: 7px; background: #0f0f11; border: 1px solid var(--rule); color: var(--muted); }
+  .fxsel-row span.on { color: #0b0b0c; background: var(--accent); border-color: var(--accent); }
+  .fxsel-row i { font-style: normal; color: var(--muted); }
   .points { list-style: none; padding: 0; margin: 22px 0 0; display: grid; gap: 8px; }
   .points li { color: var(--body); padding-left: 20px; position: relative; }
   .points li::before { content: ""; position: absolute; left: 0; top: 0.72em; width: 8px; height: 2px; background: var(--accent); }
@@ -308,14 +315,17 @@
         <p lang="en">A natural fit for controllers with eight strips of knobs, faders and buttons, like the Novation Launch Control XL and Akai APC series. One strip per layer, mapped with MIDI Learn.</p>
         <ul class="points" lang="ja">
           <li>エフェクトのオン・オフもパラメータも割り当てられる</li>
-          <li>ボタンはトグルか、押している間だけ</li>
-          <li>Launchpad Mini MK3 はLEDも光る</li>
         </ul>
         <ul class="points" lang="en">
           <li>Map effect toggles and parameters too</li>
-          <li>Pads latch or act while held</li>
-          <li>Launchpad Mini MK3 pads light up</li>
         </ul>
+        <div class="fxsel">
+          <b lang="ja">ノブ1つで、エフェクトを切り替え</b>
+          <b lang="en">One knob to switch effects</b>
+          <p lang="ja">DJ ミキサーのエフェクトのつまみのように、ノブを回すと、そのレイヤーにかかるエフェクトがオフから順に1つずつ切り替わります。1つのノブにエフェクトを7つまで並べられ、レイヤーごとにノブを2つ使えます。</p>
+          <p lang="en">Like the FX selector on a DJ mixer, turning a knob steps a layer from Off through your chosen effects, one at a time. Line up to seven effects on a knob, with two knobs per layer.</p>
+          <div class="fxsel-row" aria-hidden="true"><span>OFF</span><i>›</i><span>Glitch</span><i>›</i><span class="on">Kaleidoscope</span><i>›</i><span>Strobo</span><i>›</i><span>…</span></div>
+        </div>
       </div>
       <div>
         <figure class="ctrl" aria-label="8列のコントローラー。各列のノブ・フェーダー・ボタンが L1〜L8 に対応">
