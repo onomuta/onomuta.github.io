@@ -179,6 +179,11 @@
   dl.spec { display: grid; grid-template-columns: max-content 1fr; gap: 10px 28px; margin: 0; }
   dl.spec dt { color: var(--muted); }
   dl.spec dd { margin: 0; }
+  .release + .release { margin-top: 32px; }
+  .release h3 { font: 700 18px/1.3 var(--mono); margin: 0 0 10px; }
+  .release h3 time { color: var(--muted); font-weight: 400; font-size: 14px; margin-left: 10px; }
+  .release ul { margin: 0; padding-left: 1.2em; color: var(--body); }
+  .release li + li { margin-top: 6px; }
 
   footer { margin-top: 120px; border-top: 1px solid var(--rule); padding: 32px 0 48px; color: var(--muted); font-size: 13px; }
   footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; }
@@ -502,6 +507,37 @@
         <dt>MIDI</dt><dd>Any controller macOS recognizes</dd>
         <dt>Language</dt><dd>English and Japanese (follows your Mac’s language)</dd>
       </dl>
+    </div>
+  </section>
+
+  <section class="pricing" id="changelog">
+    <div class="wrap">
+      <h2 class="spec-title" lang="ja">更新履歴</h2>
+      <h2 class="spec-title" lang="en">What's New</h2>
+      <div class="release">
+        <h3>1.1<time datetime="2026-11-24">2026-11-24</time></h3>
+        <ul lang="ja">
+          <li>素材フォルダをいくつでも足せるようになりました。設定の「素材」タブで、足す・外すができます。</li>
+          <li>素材フォルダに入れた ISF のジェネ素材（画像の入力を持たない ISF）も、素材一覧の GEN に並ぶようになりました。</li>
+          <li>「ISFフォルダ」は「エフェクトフォルダ」になり、エフェクトだけを読むようになりました。</li>
+          <li>素材を選ぶと、すぐレイヤーに入るのが標準になりました。alpha が 0 になるまで待つ動きに戻したいときは、設定の「プレビュー」で切り替えられます。</li>
+          <li>MASTER のプレビュー（出力モニター）の更新頻度を、60・30・15fps から選べるようになりました。外部出力は常に 60fps です。</li>
+          <li>サンプルのジェネ素材（preset）を更新しました。</li>
+        </ul>
+        <ul lang="en">
+          <li>You can now add as many media folders as you like, and add or remove them in the Media tab of Settings.</li>
+          <li>ISF generative clips (ISFs without an image input) in your media folders now appear under GEN in the clip list.</li>
+          <li>"ISF Folders" are now "Effect Folders" and load effects only.</li>
+          <li>Choosing a clip now loads it into the layer right away by default. To wait until the layer's alpha reaches zero instead, change it in the Preview tab of Settings.</li>
+          <li>The MASTER preview (output monitor) can now update at 60, 30 or 15 fps. External output always runs at 60 fps.</li>
+          <li>Updated the sample generative clips (preset).</li>
+        </ul>
+      </div>
+      <div class="release">
+        <h3>1.0<time datetime="2026-11-19">2026-11-19</time></h3>
+        <ul lang="ja"><li>最初のリリース。</li></ul>
+        <ul lang="en"><li>First release.</li></ul>
+      </div>
     </div>
   </section>
 </main>
