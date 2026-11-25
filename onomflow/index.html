@@ -145,6 +145,76 @@
   .fxsel-row span { font: 600 12px/1 var(--mono); padding: 8px 10px; border-radius: 7px; background: #0f0f11; border: 1px solid var(--rule); color: var(--muted); }
   .fxsel-row span.on { color: #0b0b0c; background: var(--accent); border-color: var(--accent); }
   .fxsel-row i { font-style: normal; color: var(--muted); }
+  .pillars { list-style: none; margin: 32px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .pillars li { padding: 20px 22px; border-radius: 14px; background: var(--panel); border: 1px solid var(--rule); color: var(--body); font-size: 15px; }
+  .pillars b { display: block; color: var(--text); font-size: 17px; margin-bottom: 4px; }
+  .show .small-note { color: var(--muted); font-size: 13px; margin-top: 18px; }
+
+  .queue-mock { margin: 0; justify-self: center; width: min(100%, 420px); }
+  .qm-card { background: var(--panel); border: 1px solid var(--rule); border-radius: 14px; padding: 14px; }
+  .qm-head { display: flex; justify-content: space-between; font: 700 13px/1 var(--mono); color: var(--muted); margin-bottom: 10px; }
+  .qm-head b { color: var(--text); font-size: 16px; }
+  .qm-now { position: relative; border-radius: 8px; overflow: hidden; aspect-ratio: 16 / 9; background: #000; }
+  .qm-now > img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .qm-label { position: absolute; left: 8px; top: 8px; font: 700 11px/1 var(--mono); padding: 5px 7px; border-radius: 5px; background: rgba(0,0,0,0.7); color: var(--text); }
+  .qm-next { position: absolute; right: 8px; bottom: 8px; width: 38%; aspect-ratio: 16 / 9; border-radius: 6px; overflow: hidden; border: 2px solid var(--accent); box-shadow: 0 6px 18px rgba(0,0,0,0.6); }
+  .qm-next img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .qm-next span { position: absolute; left: 4px; top: 4px; font: 700 10px/1 var(--mono); padding: 3px 5px; border-radius: 4px; background: var(--accent); color: #0b0b0c; }
+  .qm-alpha { display: flex; align-items: center; gap: 10px; margin-top: 12px; font: 600 13px/1 var(--mono); color: var(--muted); }
+  .qm-alpha i { flex: 1; height: 6px; border-radius: 3px; background: linear-gradient(90deg, #d6d6da 50%, #2a2a2e 50%); }
+  .queue-mock figcaption { color: var(--muted); font-size: 13px; text-align: center; margin-top: 12px; }
+
+  .cz { background: var(--panel); border: 1px solid var(--rule); border-radius: 16px; padding: 18px; }
+  .cz-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px; }
+  .cz-tiles figure { margin: 0; position: relative; border-radius: 8px; overflow: hidden; aspect-ratio: 16 / 9; background: #000; }
+  .cz-tiles img { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(1) contrast(1.1); }
+  .cz-tiles i { position: absolute; inset: 0; background: var(--tint, #fff); mix-blend-mode: multiply; transition: none; }
+  .cz-tiles figcaption { position: absolute; left: 6px; bottom: 6px; font: 700 10px/1 var(--mono); padding: 4px 6px; border-radius: 4px; background: rgba(0,0,0,0.7); color: var(--text); }
+  .cz-row { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
+  .cz-row > span { width: 38px; font: 700 11px/1 var(--mono); color: var(--muted); }
+  .cz-sw { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; flex: 1; }
+  .cz-sw button { aspect-ratio: 1; border-radius: 6px; border: 2px solid transparent; background: var(--sw); cursor: pointer; padding: 0; opacity: 0.6; }
+  .cz-sw button[aria-pressed="true"] { opacity: 1; border-color: var(--text); }
+  .show .cz-note, .show .kn-note { color: var(--muted); font-size: 12px; margin: 12px 2px 0; max-width: none; }
+
+  .kn { background: var(--panel); border: 1px solid var(--rule); border-radius: 16px; padding: 18px; }
+  .kn-top { display: flex; align-items: center; gap: 18px; }
+  .kn-dial { width: 84px; height: 84px; flex: none; }
+  .kn-cc { font: 600 13px/1 var(--mono); color: var(--muted); }
+  .kn-cc b { color: var(--text); }
+  .kn-fx { font: 800 24px/1.3 var(--mono); color: var(--accent); margin-top: 6px; }
+  .kn input[type=range] { width: 100%; margin: 16px 0 6px; accent-color: var(--accent); }
+  .kn-seg { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+  .kn-seg span { font: 600 11px/1 var(--mono); text-align: center; padding: 8px 2px; border-radius: 6px; background: #0f0f11; border: 1px solid var(--rule); color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .kn-seg span.on { background: var(--accent); border-color: var(--accent); color: #0b0b0c; }
+  .kn .fx-head { margin-top: 22px; }
+
+  .memo-mock { margin: 0; display: grid; grid-template-columns: 0.8fr 1.4fr; border-radius: 14px; overflow: hidden; border: 1px solid var(--rule); background: var(--panel); min-height: 240px; }
+  .mm-list { border-right: 1px solid var(--rule); padding: 12px 8px; display: flex; flex-direction: column; gap: 4px; }
+  .mm-list span { font-size: 13px; color: var(--muted); padding: 7px 9px; border-radius: 6px; }
+  .mm-list span.on { background: #24242a; color: var(--text); }
+  .mm-body { padding: 18px 20px; }
+  .show .mm-body p { font: 600 14px/1.9 var(--mono); color: var(--text); margin: 0; max-width: none; }
+  .show .mm-body p.mm-red { color: #ff453a; font-family: inherit; margin-top: 10px; transform: rotate(-2deg); }
+  .bridge { margin: 0; }
+  .bridge-row { display: flex; align-items: center; justify-content: center; gap: 12px; }
+  .bridge-row img { height: 380px; width: auto; }
+  .bridge-arrow { font: 400 28px/1 var(--mono); color: var(--accent); }
+  .bridge figcaption { color: var(--muted); font-size: 13px; text-align: center; margin-top: 12px; }
+  @media (max-width: 1000px) { .bridge-row img { height: 300px; } }
+  @media (max-width: 640px) { .bridge-row img { height: 200px; } .bridge-row { gap: 6px; } }
+  .plans-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 640px; margin: 26px auto 0; text-align: left; }
+  .ph { padding: 14px 16px; border-radius: 12px; border: 1px solid var(--rule); background: var(--panel); }
+  .ph.free { border-color: rgba(200, 255, 60, 0.55); }
+  .ph-top b { display: block; font-size: 20px; line-height: 1.2; }
+  .ph-top b small { font-size: 13px; font-weight: 600; color: var(--muted); margin-left: 6px; }
+  .ph.free .ph-top b { color: var(--accent); }
+  .ph-top span { display: block; color: var(--body); font-size: 13px; margin-top: 2px; }
+  .ph-sq { display: flex; align-items: center; gap: 5px; margin-top: 10px; }
+  .ph-sq i { flex: 1; font: 700 11px/1 var(--mono); font-style: normal; text-align: center; padding: 7px 0; border-radius: 5px; border: 1px solid var(--rule); color: var(--muted); }
+  .ph.free .ph-sq i { border-color: var(--accent); color: var(--accent); }
+  .ph-sq svg { width: 12px; height: 14px; color: var(--muted); flex: none; margin-left: 2px; }
+  @media (max-width: 520px) { .plans-hero { grid-template-columns: 1fr; } }
   .points { list-style: none; padding: 0; margin: 22px 0 0; display: grid; gap: 8px; }
   .points li { color: var(--body); padding-left: 20px; position: relative; }
   .points li::before { content: ""; position: absolute; left: 0; top: 0.72em; width: 8px; height: 2px; background: var(--accent); }
@@ -198,6 +268,9 @@
     .hero { padding-top: 48px; }
     .layers { grid-template-columns: repeat(4, 1fr); }
     .why, .steps { grid-template-columns: 1fr; }
+    .pillars { grid-template-columns: 1fr; }
+    .memo-mock { grid-template-columns: 1fr; }
+    .mm-list { border-right: 0; border-bottom: 1px solid var(--rule); flex-direction: row; flex-wrap: wrap; }
     .terms { grid-template-columns: 1fr; gap: 0; }
     .terms dd { margin-bottom: 12px; }
     .layer-legend { grid-template-columns: 1fr; }
@@ -236,74 +309,206 @@
       <p class="lead" lang="ja">シンプルで、実用的。<br>現場で培ったノウハウを詰め込んだ、Mac専用のVJアプリ。</p>
       <p class="lead" lang="en">Simple and practical.<br>A VJ app for Mac, packed with know-how from real gigs.</p>
       <div class="cta">
-        <a class="btn primary" href="https://apps.apple.com/jp/app/onom-flow/id6824899360" lang="ja">Mac App Store で無料入手</a>
-        <a class="btn primary" href="https://apps.apple.com/app/onom-flow/id6824899360" lang="en">Get it free on the Mac App Store</a>
+        <a class="btn primary" href="https://apps.apple.com/jp/app/onom-flow/id6824899360" lang="ja">Mac App Store で入手</a>
+        <a class="btn primary" href="https://apps.apple.com/app/onom-flow/id6824899360" lang="en">Get it on the Mac App Store</a>
       </div>
-      <p class="note" lang="ja">無料版でも、期限なしで4レイヤー。5,000円の買い切りで8レイヤー。</p>
-      <p class="note" lang="en">Four layers free, with no time limit. A one-time ¥5,000 purchase unlocks 8.</p>
+      <div class="plans-hero">
+        <div class="ph free">
+          <div class="ph-top"><b lang="ja">無料</b><b lang="en">Free</b><span lang="ja">4レイヤーまで・期限なし</span><span lang="en">Up to 4 layers, no time limit</span></div>
+          <div class="ph-sq"><i>1</i><i>2</i><i>3</i><i>4</i></div>
+        </div>
+        <div class="ph paid">
+          <div class="ph-top"><b lang="ja">5,000円<small>買い切り</small></b><b lang="en">¥5,000<small>one-time</small></b><span lang="ja">8レイヤーで使うには購入が必要</span><span lang="en">Required to use all 8 layers</span></div>
+          <div class="ph-sq"><i>5</i><i>6</i><i>7</i><i>8</i><svg viewBox="0 0 12 14" aria-hidden="true"><path fill="currentColor" d="M3 6V4a3 3 0 0 1 6 0v2h1a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h1Zm1.5 0h3V4a1.5 1.5 0 0 0-3 0v2Z"/></svg></div>
+        </div>
+      </div>
     </div>
     <figure class="shot wrap">
       <img src="../assets/onomflow-live.jpg" width="2400" height="1561" alt="ONOM FLOW のライブ画面。上に8つのレイヤーと出力、下に素材ライブラリと共通の入力パネル。">
     </figure>
+  </section>
+
+  <section class="show" id="concept">
     <div class="wrap">
-      <ul class="why" lang="ja">
-        <li><b>無料・期限なしで4レイヤー</b>足りなくなったら、5,000円の買い切りで8レイヤーに。</li>
-        <li><b>柔軟に展開を組み立てる</b>レイヤーキューとストックエリアで、この先の流れを前もって仕込める。</li>
-        <li><b>Mirage Composer で表現の幅を広げる</b>ジェネラティブな表現を、手軽に VJ セットへ取り込める。</li>
+      <div class="tag">CONCEPT</div>
+      <h2 lang="ja">多機能より、<br>迷わず触れること</h2>
+      <h2 lang="en">Less to learn.<br>Nothing to hunt for.</h2>
+      <p lang="ja">自分の VJ スタイルに合わせて、機能を選び抜いたシンプルな VJ ツールです。多機能さよりも「迷わず触れること」を大切にしながら、カラーライズ、レイヤーキュー、ストック、ノブエフェクト、メモなど、現場で効く実用的な機能をそろえました。</p>
+      <p lang="en">A simple VJ tool whose features were chosen to fit one VJ's way of playing. It puts being able to reach for things without thinking ahead of having every feature, and brings practical tools that work on the night: colorize, the Layer Queue, the stock, knob effects and memos.</p>
+      <ul class="pillars" lang="ja">
+        <li><b>プレイスタイルから機能を選ぶ</b>多機能にはせず、実際の運用に要るものだけを積んでいます。</li>
+        <li><b>いつもの Mac で、現場を回す</b>MacBook Air M4 と 1080p の出力で、実際の現場を回しています。</li>
+        <li><b>ノイズを抑えた画面</b>展開をつくる中心の「素材一覧」を真ん中に置き、ほかは静かに。</li>
       </ul>
-      <ul class="why" lang="en">
-        <li><b>Four layers free, forever</b>Unlock eight with a one-time ¥5,000 purchase when you need them.</li>
-        <li><b>Build your set as you go</b>Line up what comes next with the Layer Queue and the stock area.</li>
-        <li><b>Go further with Mirage Composer</b>Bring generative visuals into your VJ set with ease.</li>
+      <ul class="pillars" lang="en">
+        <li><b>Features chosen from real play</b>No feature bloat — only what an actual set needs.</li>
+        <li><b>Real gigs on an everyday Mac</b>Played live on a MacBook Air M4 at 1080p.</li>
+        <li><b>A quiet interface</b>The clip list, the heart of building a set, sits in the middle. Everything else stays out of the way.</li>
       </ul>
     </div>
   </section>
 
-  <section class="show">
-    <div class="wrap">
-      <div class="tag">QUEUE · STOCK</div>
-      <h2 lang="ja">VJ が思う<br>「あったら便利」を形に</h2>
-      <h2 lang="en">The things VJs<br>wish they had</h2>
-      <p lang="ja">出ているレイヤーに素材を選んでも、いきなりは切り替わりません。素材はそのレイヤーのレイヤーキューに入り、alpha（不透明度）を0まで下げた瞬間に入れ替わります。この後に使いたい素材は、全レイヤー共通のストックエリアに10個まで。クリックひとつで、選んでいるレイヤーへ送れます。</p>
-      <p lang="en">Pick a clip for a layer that's showing and it won't cut in. It goes into that layer's Layer Queue and swaps in the moment you fade alpha (opacity) to zero. Clips you'll want later go into the stock area shared by all layers — up to ten — and one click sends any of them to the selected layer.</p>
-      <ul class="points" lang="ja">
-        <li>切り替えるタイミングは、フェーダーを下げる手で決まる</li>
-        <li>レイヤーキューの素材はサムネイルに「次」と出て、右クリックで取り消せる</li>
-        <li>ストックエリアはセットと一緒に保存される</li>
-      </ul>
-      <ul class="points" lang="en">
-        <li>Your hand on the fader decides when the swap happens</li>
-        <li>A queued clip shows “次” (next) on the thumbnail; right-click to cancel it</li>
-        <li>The stock area is saved with your set</li>
-      </ul>
-      <img class="frame wide" src="../assets/onomflow-layers.jpg" width="2220" height="433" loading="lazy" alt="L1〜L8のレイヤーカードと、その下に並ぶ10個のストックエリア">
-    </div>
-  </section>
-
-  <section class="show" id="isf">
+  <section class="show" id="queue">
     <div class="wrap split">
       <div>
-        <div class="tag">EFFECTS</div>
-        <h2 lang="ja">かけるだけで、<br>絵が決まる</h2>
-        <h2 lang="en">Switch it on.<br>It just looks right.</h2>
-        <p lang="ja">グリッチ、万華鏡、ストロボ、輪郭の光。VJ のために作ったエフェクトが16本、はじめから入っています。レイヤーにかけて、MIDI のノブで強さを決めるだけ。</p>
-        <p lang="en">Glitch, kaleidoscope, strobe, edge glow — sixteen effects made for VJing come built in. Put one on a layer and dial in the amount from a MIDI knob.</p>
+        <div class="tag">LAYER QUEUE</div>
+        <h2 lang="ja">次の映像を、<br>先に仕込んでおける</h2>
+        <h2 lang="en">Line up the next clip<br>before you need it</h2>
+        <p lang="ja">出ているレイヤーに素材を選んでも、すぐには切り替わりません。その素材はレイヤーキューで待ち、alpha（不透明度）が0になった瞬間に差し替わります。一瞬の判断が求められる現場でも、次の映像を落ち着いて用意できます。</p>
+        <p lang="en">Pick a clip for a layer that's showing and it won't cut in. It waits in the Layer Queue and swaps in the moment the layer's alpha (opacity) reaches zero, so you can get the next clip ready calmly, even when the room needs a split-second call.</p>
         <ul class="points" lang="ja">
-          <li>レイヤーごとにオン・オフ、出力全体にもかけられる</li>
-          <li>間隔ごとに崩れ方が変わるもの、ランダムに動くものも</li>
-          <li>足りなければ ISF のファイルを足して増やせる</li>
+          <li>送出中の映像がいきなり切り替わる、操作ミスを防ぐ</li>
+          <li>待っている素材はプレビューの右下に小さく出て、「今」と「次」を一度に見られる</li>
+          <li>待っている間に選び直せば入れ替わり、右クリックで取り消しも</li>
+          <li>レイヤーごとに、別々に待てる</li>
         </ul>
         <ul class="points" lang="en">
-          <li>Switch effects per layer, or on the whole output</li>
-          <li>Some change on a beat-like interval, some drift randomly</li>
-          <li>Need more? Add your own ISF files</li>
+          <li>No more accidental cuts on the clip that's on air</li>
+          <li>The waiting clip shows small in the corner of the preview, so you see “now” and “next” at once</li>
+          <li>Pick again to replace it, or right-click to cancel</li>
+          <li>Each layer queues on its own</li>
+        </ul>
+        <p class="small-note" lang="ja">レイヤーキューは、設定の「プレビュー」で「素材を選んだらすぐレイヤーに入れる」を切ると使えます。</p>
+        <p class="small-note" lang="en">To use the Layer Queue, turn off “load clips into the layer right away” in the Preview tab of Settings.</p>
+      </div>
+      <figure class="queue-mock" aria-label="レイヤーのプレビュー。今出ている映像の右下に、次の素材が小さく出ている">
+        <div class="qm-card">
+          <div class="qm-head"><b>L2</b><span>ADD</span></div>
+          <div class="qm-now">
+            <img src="../assets/onomflow-tile-b.jpg" alt="">
+            <span class="qm-label" lang="ja">今</span><span class="qm-label" lang="en">NOW</span>
+            <div class="qm-next"><img src="../assets/onomflow-tile-c.jpg" alt=""><span lang="ja">次</span><span lang="en">NEXT</span></div>
+          </div>
+          <div class="qm-alpha"><i></i><span>64</span></div>
+        </div>
+        <figcaption lang="ja">alpha を0まで下げると、右下の「次」が入れ替わる</figcaption>
+        <figcaption lang="en">Pull alpha down to zero and “next” swaps in</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="show" id="colorize">
+    <div class="wrap split flip">
+      <div>
+        <div class="tag">COLORIZE</div>
+        <h2 lang="ja">明暗はそのまま、<br>色だけを置き換える</h2>
+        <h2 lang="en">Keep the light and shade.<br>Swap the color.</h2>
+        <p lang="ja">映像の明暗を保ったまま、単色に置き換えます。多くの VJ が自前で用意している定番の処理を、はじめから使える形で入れました。メインとサブの2色をレイヤーごとに割り当て、メインの色を変えれば、割り当てた全レイヤーが一斉に変わります。</p>
+        <p lang="en">Turn any clip into a single color while keeping its light and shade — the staple effect many VJs build for themselves, ready from the start. Assign a main or sub color to each layer, then change the main color and every layer using it follows at once.</p>
+        <ul class="points" lang="ja">
+          <li>色は7色＋白。Launchpad などのボタンから素早く選べる</li>
+          <li>統一感を保ったまま、展開に合わせて色を組み替えられる</li>
+          <li>色の切り替えは即座に（フェードなし）</li>
+        </ul>
+        <ul class="points" lang="en">
+          <li>Seven colors plus white, quick to pick from a Launchpad or any pad</li>
+          <li>Rework the palette to match the moment, while everything stays cohesive</li>
+          <li>Color changes are instant — no fade</li>
         </ul>
       </div>
-      <div class="fx">
+      <div class="cz" id="cz">
+        <div class="cz-tiles">
+          <figure data-role="main"><img src="../assets/onomflow-tile-a.jpg" alt=""><i></i><figcaption>L1 · MAIN</figcaption></figure>
+          <figure data-role="sub"><img src="../assets/onomflow-tile-b.jpg" alt=""><i></i><figcaption>L2 · SUB</figcaption></figure>
+          <figure data-role="main"><img src="../assets/onomflow-tile-c.jpg" alt=""><i></i><figcaption>L3 · MAIN</figcaption></figure>
+        </div>
+        <div class="cz-row"><span>MAIN</span><div class="cz-sw"><button type="button" data-role="main" data-c="#ffffff" style="--sw:#ffffff" aria-label="white"></button><button type="button" data-role="main" data-c="#ff3b30" style="--sw:#ff3b30" aria-label="red"></button><button type="button" data-role="main" data-c="#ff9500" style="--sw:#ff9500" aria-label="orange"></button><button type="button" data-role="main" data-c="#ffd60a" style="--sw:#ffd60a" aria-label="yellow"></button><button type="button" data-role="main" data-c="#34c759" style="--sw:#34c759" aria-label="green"></button><button type="button" data-role="main" data-c="#32d0e8" style="--sw:#32d0e8" aria-label="cyan"></button><button type="button" data-role="main" data-c="#2f5bff" style="--sw:#2f5bff" aria-label="blue"></button><button type="button" data-role="main" data-c="#ff2d92" style="--sw:#ff2d92" aria-label="magenta"></button></div></div>
+        <div class="cz-row"><span>SUB</span><div class="cz-sw"><button type="button" data-role="sub" data-c="#ffffff" style="--sw:#ffffff" aria-label="white"></button><button type="button" data-role="sub" data-c="#ff3b30" style="--sw:#ff3b30" aria-label="red"></button><button type="button" data-role="sub" data-c="#ff9500" style="--sw:#ff9500" aria-label="orange"></button><button type="button" data-role="sub" data-c="#ffd60a" style="--sw:#ffd60a" aria-label="yellow"></button><button type="button" data-role="sub" data-c="#34c759" style="--sw:#34c759" aria-label="green"></button><button type="button" data-role="sub" data-c="#32d0e8" style="--sw:#32d0e8" aria-label="cyan"></button><button type="button" data-role="sub" data-c="#2f5bff" style="--sw:#2f5bff" aria-label="blue"></button><button type="button" data-role="sub" data-c="#ff2d92" style="--sw:#ff2d92" aria-label="magenta"></button></div></div>
+        <p class="cz-note" lang="ja">色を押すと、そのロールのレイヤーが一斉に変わります（ページ上での再現です）</p>
+        <p class="cz-note" lang="en">Press a color and every layer with that role changes at once (a simulation in your browser).</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="show" id="knob">
+    <div class="wrap split">
+      <div>
+        <div class="tag">KNOB EFFECTS</div>
+        <h2 lang="ja">ノブ1つで、<br>エフェクトを選ぶ</h2>
+        <h2 lang="en">One knob,<br>many effects</h2>
+        <p lang="ja">DJ ミキサーのエフェクト選択ノブのように、ノブの位置でかかるエフェクトが切り替わります。かけたいエフェクトが増えても、ボタンを増やさずに済みます。</p>
+        <p lang="en">Like the FX selector on a DJ mixer, the knob's position decides which effect is on. Add more effects without adding more buttons.</p>
+        <ul class="points" lang="ja">
+          <li>ノブを合わせた時点で、そのエフェクトがかかる</li>
+          <li>一番左はエフェクトなし</li>
+          <li>1つのノブに7つまで並べられ、レイヤーごとにノブを2つ使える</li>
+          <li>内蔵の16本に加えて、ISF で増やせる</li>
+        </ul>
+        <ul class="points" lang="en">
+          <li>The effect kicks in as soon as the knob lands on it</li>
+          <li>All the way left is no effect</li>
+          <li>Up to seven effects per knob, with two knobs per layer</li>
+          <li>Sixteen built-in effects, and more with ISF</li>
+        </ul>
+      </div>
+      <div class="kn" id="kn">
+        <div class="kn-top">
+          <svg class="kn-dial" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="38" fill="#1c1c1f" stroke="#3a3a40" stroke-width="3"/><line id="kn-needle" x1="50" y1="50" x2="50" y2="18" stroke="#f2f2f2" stroke-width="5" stroke-linecap="round" transform="rotate(-135 50 50)"/></svg>
+          <div><div class="kn-cc">CC <b id="kn-cc">0</b></div><div class="kn-fx" id="kn-fx">OFF</div></div>
+        </div>
+        <input type="range" min="0" max="127" value="0" id="kn-range" aria-label="CC">
+        <div class="kn-seg" id="kn-seg"><span>OFF</span><span>Glitch</span><span>Kaleidoscope</span><span>Strobo</span></div>
+        <p class="kn-note" lang="ja">スライダーを動かしてみてください（ページ上での再現です）</p>
+        <p class="kn-note" lang="en">Move the slider to try it (a simulation in your browser).</p>
         <div class="fx-head" lang="ja">はじめから入っているエフェクト 16本</div>
         <div class="fx-head" lang="en">16 effects included</div>
         <div class="fx-group"><div class="fx-cat"><span lang="ja">崩す</span><span lang="en">Break</span></div><div class="fx-list"><span>Glitch</span><span>MotionSmear</span><span>ScanDelayMatrix</span><span>FrameSlide</span><span>Slicer</span><span>BlockFill</span></div></div><div class="fx-group"><div class="fx-cat"><span lang="ja">光る・点滅</span><span lang="en">Flash</span></div><div class="fx-list"><span>Strobo</span><span>StripeFlash</span><span>EdgeGlow</span></div></div><div class="fx-group"><div class="fx-cat"><span lang="ja">色</span><span lang="en">Color</span></div><div class="fx-list"><span>Colorama</span><span>Posterize</span></div></div><div class="fx-group"><div class="fx-cat"><span lang="ja">形・配置</span><span lang="en">Shape</span></div><div class="fx-list"><span>Kaleidoscope</span><span>Tile</span><span>Zoom</span><span>RandomZoom</span><span>Crop</span></div></div>
       </div>
+    </div>
+  </section>
+
+  <section class="show" id="stock">
+    <div class="wrap">
+      <div class="tag">STOCK</div>
+      <h2 lang="ja">もうすぐ使う素材を、<br>見える場所に</h2>
+      <h2 lang="en">Keep what's coming up<br>where you can see it</h2>
+      <p lang="ja">今はレイヤーに入れないけれど、もうすぐ使いそうな素材を、いつも見える位置に置いておけます。クリックひとつで、選んでいるレイヤーへ送れます。</p>
+      <p lang="en">Park clips you'll want soon — not on a layer yet — where they're always in view. One click sends any of them to the selected layer.</p>
+      <ul class="points" lang="ja">
+        <li>アクティブなレイヤーが無いときに選んだ素材は、自動でストックへ</li>
+        <li>10個を超えると、古いものから押し出される</li>
+        <li>「こんな展開が来そう」な素材や、必ずかける曲の MV、ロゴの置き場に</li>
+      </ul>
+      <ul class="points" lang="en">
+        <li>Clips you pick with no active layer go straight to the stock</li>
+        <li>Past ten, the oldest one drops off</li>
+        <li>Handy for clips you sense are coming, the music video you'll always play, or your logos</li>
+      </ul>
+      <img class="frame wide" src="../assets/onomflow-stock.jpg" width="2043" height="120" loading="lazy" alt="10個のストックが並んだ列">
+    </div>
+  </section>
+
+  <section class="show" id="memo">
+    <div class="wrap split">
+      <div>
+        <div class="tag">MEMO</div>
+        <h2 lang="ja">タイムテーブルを、<br>すぐ手元に</h2>
+        <h2 lang="en">Your timetable,<br>right at hand</h2>
+        <p lang="ja">VJ のタイムテーブルは、現地で決まることがよくあります。その場の混乱を減らすためのメモです。ライブ画面の横に開いたまま、操作を続けられます。</p>
+        <p lang="en">VJ timetables often get settled at the venue. MEMO keeps that from turning into chaos, and stays open beside the live screen while you keep playing.</p>
+        <ul class="points" lang="ja">
+          <li>メモはいくつでも作れる</li>
+          <li>画像を加えて、ペンで直接書き込める</li>
+          <li>文字のメモは箇条書きにも</li>
+          <li>次に起動しても、そのまま残る</li>
+        </ul>
+        <ul class="points" lang="en">
+          <li>Make as many memos as you like</li>
+          <li>Add images and mark them up with a pen</li>
+          <li>Text memos can be bulleted lists</li>
+          <li>Everything is still there next time you open the app</li>
+        </ul>
+      </div>
+      <figure class="memo-mock" aria-label="MEMO のウィンドウの例">
+        <div class="mm-list"><span class="on" lang="ja">今夜のタイムテーブル</span><span class="on" lang="en">Tonight's timetable</span><span>flyer.png</span><span lang="ja">テキスト 2</span><span lang="en">Text 2</span></div>
+        <div class="mm-body">
+          <p>• 22:00 – 23:00　DJ A / VJ onom</p>
+          <p>• 23:00 – 0:00　DJ B / VJ guest</p>
+          <p>• 0:00 – 1:00　DJ C / VJ onom</p>
+          <p class="mm-red" lang="ja">← 0時から交代</p>
+          <p class="mm-red" lang="en">← switch at midnight</p>
+        </div>
+      </figure>
     </div>
   </section>
 
@@ -317,17 +522,12 @@
         <p lang="en">A natural fit for controllers with eight strips of knobs, faders and buttons, like the Novation Launch Control XL and Akai APC series. One strip per layer, mapped with MIDI Learn.</p>
         <ul class="points" lang="ja">
           <li>エフェクトのオン・オフもパラメータも割り当てられる</li>
+          <li>ノブエフェクトで、ノブ1つにエフェクトをまとめられる</li>
         </ul>
         <ul class="points" lang="en">
           <li>Map effect toggles and parameters too</li>
+          <li>Put a whole set of effects on one knob with knob effects</li>
         </ul>
-        <div class="fxsel">
-          <b lang="ja">ノブ1つで、エフェクトを切り替え</b>
-          <b lang="en">One knob to switch effects</b>
-          <p lang="ja">DJ ミキサーのエフェクトのつまみのように、ノブを回すと、そのレイヤーにかかるエフェクトがオフから順に1つずつ切り替わります。1つのノブにエフェクトを7つまで並べられ、レイヤーごとにノブを2つ使えます。</p>
-          <p lang="en">Like the FX selector on a DJ mixer, turning a knob steps a layer from Off through your chosen effects, one at a time. Line up to seven effects on a knob, with two knobs per layer.</p>
-          <div class="fxsel-row" aria-hidden="true"><span>OFF</span><i>›</i><span>Glitch</span><i>›</i><span class="on">Kaleidoscope</span><i>›</i><span>Strobo</span><i>›</i><span>…</span></div>
-        </div>
       </div>
       <div>
         <figure class="ctrl" aria-label="8列のコントローラー。各列のノブ・フェーダー・ボタンが L1〜L8 に対応">
@@ -340,13 +540,13 @@
   </section>
 
   <section class="show" id="mirage">
-    <div class="wrap split tall">
+    <div class="wrap split">
       <div>
         <div class="tag">MIRAGE COMPOSER</div>
         <h2 lang="ja">BPMも色も文字も、<br>ジェネ素材へ</h2>
         <h2 lang="en">BPM, colors and text,<br>straight into generative clips</h2>
-        <p lang="ja"><a href="../mirage-composer/">Mirage Composer</a> で作った作品を、そのままジェネ素材として描きます。タップしたBPMや拍、色、文字が作品へ届きます。</p>
-        <p lang="en">Compositions from <a href="../mirage-composer/">Mirage Composer</a> play as generative clips, and receive your tapped BPM, beat, colors and text.</p>
+        <p lang="ja"><a href="../mirage-composer/">Mirage Composer</a> で作った作品を、そのままジェネ素材として描きます。タップしたBPMや拍、色、文字が作品へ届きます。作品の側では、<strong>ONOM FLOW Input</strong> パッチを1つ置くだけで、まとめて受け取れます。</p>
+        <p lang="en">Compositions from <a href="../mirage-composer/">Mirage Composer</a> play as generative clips, and receive your tapped BPM, beat, colors and text. In the composition, a single <strong>ONOM FLOW Input</strong> patch picks them all up.</p>
         <div class="mirage-card">
           <img src="../assets/mirage-icon.png" width="72" height="72" alt="">
           <div>
@@ -362,7 +562,15 @@
           </div>
         </div>
       </div>
-      <img class="frame" src="../assets/onomflow-input.jpg" width="438" height="926" loading="lazy" alt="INPUT パネル。BPM、Gain、Input 1〜4、色、テキスト、画像">
+      <figure class="bridge">
+        <div class="bridge-row">
+          <img class="frame" src="../assets/onomflow-input.jpg" width="438" height="926" loading="lazy" alt="ONOM FLOW の INPUT パネル。BPM、Gain、Input 1〜4、色、テキスト、画像">
+          <span class="bridge-arrow" aria-hidden="true">→</span>
+          <img class="frame" src="../assets/mirage-onomflow-input.jpg" width="1150" height="1175" loading="lazy" alt="Mirage Composer の ONOM FLOW Input パッチ。BPM、Beat、Input 1〜4、Text、Image、Main Color、Sub Color の出力">
+        </div>
+        <figcaption lang="ja">ONOM FLOW の INPUT パネル（左）から、Mirage Composer の ONOM FLOW Input パッチ（右）へ</figcaption>
+        <figcaption lang="en">From the INPUT panel in ONOM FLOW (left) to the ONOM FLOW Input patch in Mirage Composer (right)</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -374,32 +582,15 @@
       <ol class="steps" lang="ja">
         <li><b>素材を入れる</b>書類フォルダの「ONOMFLOW」に入れるか、ウィンドウへドラッグ。はじめはサンプルのジェネ素材も入っています。</li>
         <li><b>レイヤーを選んで、素材をクリック</b>選んだ素材が、そのレイヤーに入ります。</li>
-        <li><b>フェーダーで出す</b>alpha を上げると映像が出ます。0 まで下げた瞬間、レイヤーキューの素材に入れ替わります。</li>
+        <li><b>フェーダーで出す</b>alpha を上げると映像が出ます。下げれば消え、ほかのレイヤーと重ねて混ぜられます。</li>
       </ol>
       <ol class="steps" lang="en">
         <li><b>Add your clips</b>Put them in the “ONOMFLOW” folder in Documents, or drag them onto the window. Sample generative clips are there to start with.</li>
         <li><b>Select a layer, click a clip</b>The clip goes straight to that layer.</li>
-        <li><b>Bring it in with a fader</b>Raise alpha to show it. Pull it down to zero and the clip in the Layer Queue swaps in.</li>
+        <li><b>Bring it in with a fader</b>Raise alpha to show it, pull it down to hide it, and blend it with the other layers.</li>
       </ol>
       <p class="steps-note" lang="ja">コントローラーが無くても、マウスだけで始められます。素材が無ければ、無料の <a href="../mirage-composer/">Mirage Composer</a> のデモを素材フォルダに保存すれば、ジェネ素材として使えます。</p>
       <p class="steps-note" lang="en">No controller? A mouse is enough to start. No footage yet? Save a demo from the free <a href="../mirage-composer/">Mirage Composer</a> into your media folder and play it as a generative clip.</p>
-    </div>
-  </section>
-
-  <section class="more">
-    <div class="wrap">
-      <h2 lang="ja">ほかにも</h2>
-      <h2 lang="en">And also</h2>
-      <ul lang="ja">
-        <li><strong>HAP・動画・静止画</strong>HAPはフルHD・60fpsまで。ロゴの静止画は大きさと位置を調整。</li>
-        <li><strong>カラーライズ</strong>2色を選ぶだけで、全レイヤーの色味がそろう。</li>
-        <li><strong>MEMO</strong>タイムテーブルやフライヤーを横に置いて、赤ペンで書き込み。</li>
-      </ul>
-      <ul lang="en">
-        <li><strong>HAP, video and stills</strong>HAP up to 1080p60. Scale and place logo images.</li>
-        <li><strong>Colorize</strong>Pick two colors and every layer follows.</li>
-        <li><strong>MEMO</strong>Keep the timetable or flyer beside you and mark it up in red.</li>
-      </ul>
     </div>
   </section>
 
@@ -498,6 +689,7 @@
         <dt>Mac</dt><dd>Apple シリコン搭載の Mac</dd>
         <dt>素材</dt><dd>HAP（推奨）、H.264・HEVC・ProRes、JPEG・PNG、ISF、Mirage Composer の .mcomp</dd>
         <dt>MIDI</dt><dd>macOS で認識できるコントローラー</dd>
+        <dt>運用実績</dt><dd>MacBook Air M4（16GB）・1080p 出力で現場を回しています</dd>
         <dt>言語</dt><dd>日本語・英語（Mac の言語に合わせます）</dd>
       </dl>
       <dl class="spec" lang="en">
@@ -505,6 +697,7 @@
         <dt>Mac</dt><dd>A Mac with Apple silicon</dd>
         <dt>Media</dt><dd>HAP (recommended), H.264, HEVC, ProRes, JPEG, PNG, ISF and Mirage Composer .mcomp</dd>
         <dt>MIDI</dt><dd>Any controller macOS recognizes</dd>
+        <dt>Used live on</dt><dd>MacBook Air M4 (16 GB), 1080p output</dd>
         <dt>Language</dt><dd>English and Japanese (follows your Mac’s language)</dd>
       </dl>
     </div>
@@ -575,6 +768,36 @@
         try { localStorage.setItem("lang", b.dataset.setLang); } catch (e) {}
       });
     });
+  })();
+</script>
+<script>
+  // Colorize demo: tint grayscale tiles with the chosen main/sub color.
+  (function () {
+    var root = document.getElementById("cz"); if (!root) return;
+    var pick = { main: "#ff3b30", sub: "#32d0e8" };
+    function apply() {
+      root.querySelectorAll(".cz-tiles figure").forEach(function (f) { f.style.setProperty("--tint", pick[f.dataset.role]); });
+      root.querySelectorAll(".cz-sw button").forEach(function (b) { b.setAttribute("aria-pressed", String(pick[b.dataset.role] === b.dataset.c)); });
+    }
+    root.addEventListener("click", function (e) {
+      var b = e.target.closest("button[data-role]"); if (!b) return;
+      pick[b.dataset.role] = b.dataset.c; apply();
+    });
+    apply();
+  })();
+
+  // Knob effects demo: CC 0–127 split evenly into Off plus three effects.
+  (function () {
+    var range = document.getElementById("kn-range"); if (!range) return;
+    var segs = document.querySelectorAll("#kn-seg span"), names = ["OFF", "Glitch", "Kaleidoscope", "Strobo"];
+    function update() {
+      var v = +range.value, i = Math.min(Math.floor(v / (128 / names.length)), names.length - 1);
+      document.getElementById("kn-cc").textContent = v;
+      document.getElementById("kn-fx").textContent = names[i];
+      document.getElementById("kn-needle").setAttribute("transform", "rotate(" + (-135 + v / 127 * 270) + " 50 50)");
+      segs.forEach(function (s, j) { s.classList.toggle("on", j === i); });
+    }
+    range.addEventListener("input", update); update();
   })();
 </script>
 </body>

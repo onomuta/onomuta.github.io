@@ -134,6 +134,10 @@
   .faq summary::after { content: "+"; position: absolute; right: 8px; top: 14px; font: 400 24px/1 var(--mono); color: var(--accent); }
   .faq details[open] summary::after { content: "−"; }
   .faq details p { margin: 0 4px 18px; color: var(--body); max-width: 46em; }
+  .patch-shot { margin: 0; }
+  .patch-shot img { display: block; width: 100%; max-width: 460px; height: auto; margin: 0 auto; border-radius: 14px; border: 1px solid var(--rule); box-shadow: 0 30px 80px rgba(0,0,0,0.5); }
+  .patch-shot figcaption { color: var(--muted); font-size: 13px; text-align: center; margin-top: 12px; }
+  #onomflow .onom { margin-top: 28px; }
   .points { list-style: none; padding: 0; margin: 22px 0 0; display: grid; gap: 8px; }
   .points li { color: var(--body); padding-left: 20px; position: relative; }
   .points li::before { content: ""; position: absolute; left: 0; top: 0.72em; width: 8px; height: 2px; background: var(--accent); }
@@ -365,22 +369,29 @@
   </section>
 
   <section class="show" id="onomflow">
-    <div class="wrap">
-      <div class="tag">ONOM FLOW</div>
-      <h2 lang="ja">作品を、そのまま VJ に</h2>
-      <h2 lang="en">From composition to VJ set</h2>
-      <p lang="ja">作品は VJ アプリ ONOM FLOW のジェネ素材になります。<strong>ONOM FLOW Input</strong> パッチを置けば、BPM・拍・色・文字を受け取れます。</p>
-      <p lang="en">Compositions play as generative clips in ONOM FLOW. Add an <strong>ONOM FLOW Input</strong> patch to receive BPM, beat, colors and text.</p>
-      <div class="onom">
-        <img src="../assets/onomflow-icon.png" alt="ONOM FLOW のアイコン">
-        <div>
-          <h3>ONOM FLOW</h3>
-          <p lang="ja">Mac専用のVJアプリ。Mac App Store で近日公開。</p>
-          <p lang="en">A VJ app for Mac. Coming soon to the Mac App Store.</p>
-          <a href="../onomflow/" lang="ja">ONOM FLOW について →</a>
-          <a href="../onomflow/" lang="en">About ONOM FLOW →</a>
+    <div class="wrap split">
+      <div>
+        <div class="tag">ONOM FLOW</div>
+        <h2 lang="ja">作品を、そのまま VJ に</h2>
+        <h2 lang="en">From composition to VJ set</h2>
+        <p lang="ja">作品は VJ アプリ ONOM FLOW のジェネ素材になります。<strong>ONOM FLOW Input</strong> パッチを1つ置けば、BPM・拍・色・文字・画像をまとめて受け取れます。</p>
+        <p lang="en">Compositions play as generative clips in ONOM FLOW. Add a single <strong>ONOM FLOW Input</strong> patch to receive BPM, beat, colors, text and images.</p>
+        <div class="onom">
+          <img src="../assets/onomflow-icon.png" alt="ONOM FLOW のアイコン">
+          <div>
+            <h3>ONOM FLOW</h3>
+            <p lang="ja">Mac専用のVJアプリ。Mac App Store で配信中。</p>
+            <p lang="en">A VJ app for Mac, available on the Mac App Store.</p>
+            <a href="../onomflow/" lang="ja">ONOM FLOW について →</a>
+            <a href="../onomflow/" lang="en">About ONOM FLOW →</a>
+          </div>
         </div>
       </div>
+      <figure class="patch-shot">
+        <img src="../assets/mirage-onomflow-input.jpg" width="1150" height="1175" loading="lazy" alt="ONOM FLOW Input パッチ。BPM、Beat、Beat 2、Beat 4、Gain、Input 1〜4、Text 1〜2、Image 1〜2、Main Color、Sub Color の出力">
+        <figcaption lang="ja">ONOM FLOW Input パッチ。出力をほかのパッチへつなぐだけ</figcaption>
+        <figcaption lang="en">The ONOM FLOW Input patch — just wire its outputs into other patches</figcaption>
+      </figure>
     </div>
   </section>
 
