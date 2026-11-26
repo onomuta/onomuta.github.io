@@ -223,6 +223,8 @@
   .more li { padding: 18px 4px; border-bottom: 1px solid var(--rule); color: var(--body); }
   .more li strong { display: block; color: var(--text); font-size: 16px; margin-bottom: 2px; }
   .more li a { color: var(--text); text-decoration-color: var(--accent); text-underline-offset: 3px; }
+  .more li a::after { content: " ↗"; color: var(--muted); font-size: 0.85em; }
+  .more li .by { display: block; color: var(--muted); font-size: 13px; margin-bottom: 6px; }
   .more code { font: 13px var(--mono); color: #d6d6da; background: var(--panel); padding: 2px 6px; border-radius: 4px; }
   .more-lead { color: var(--body); margin: -8px 0 24px; max-width: 36em; }
   .more-note { color: var(--muted); font-size: 14px; margin: 16px 0 0; }
@@ -550,20 +552,20 @@
     <div class="wrap">
       <h2 lang="ja">素材は HAP がおすすめ</h2>
       <h2 lang="en">HAP is the way to go</h2>
-      <p class="more-lead" lang="ja">H.264 や ProRes もそのまま再生できますが、HAP にすると切り替えが速く、8レイヤーでも負荷が安定します。無料のツールでまとめて変換できます。</p>
-      <p class="more-lead" lang="en">H.264 and ProRes play as they are, but HAP switches faster and stays light across eight layers. Free tools convert whole folders at once.</p>
+      <p class="more-lead" lang="ja">H.264 や ProRes もそのまま再生できますが、HAP にすると切り替えが速く、8レイヤーでも負荷が安定します。変換には、ほかの開発者が公開している無料のツールが使えます。</p>
+      <p class="more-lead" lang="en">H.264 and ProRes play as they are, but HAP switches faster and stays light across eight layers. To convert, you can use free tools made by other developers.</p>
       <ul lang="ja">
-        <li><strong><a href="https://www.shutterencoder.com/">Shutter Encoder</a></strong>無料。ファイルを落として「HAP」を選び、まとめて書き出し。</li>
-        <li><strong><a href="https://synapserack.com/ja/tools/">SynapseRack Media Encoder</a></strong>無料。HAP へのまとめ変換に絞ったエンコーダー。</li>
-        <li><strong>ffmpeg</strong><code>ffmpeg -i in.mp4 -c:v hap out.mov</code></li>
+        <li><strong><a href="https://www.shutterencoder.com/" target="_blank" rel="noopener">Shutter Encoder</a></strong><span class="by">開発：Paul Pacifico</span>無料。ファイルを落として「HAP」を選び、まとめて書き出し。</li>
+        <li><strong><a href="https://synapserack.com/ja/tools/" target="_blank" rel="noopener">SynapseRack Media Encoder</a></strong><span class="by">開発：SynapseRack</span>無料。HAP へのまとめ変換に絞ったエンコーダー。</li>
+        <li><strong><a href="https://ffmpeg.org/" target="_blank" rel="noopener">ffmpeg</a></strong><span class="by">開発：FFmpeg プロジェクト</span><code>ffmpeg -i in.mp4 -c:v hap out.mov</code></li>
       </ul>
       <ul lang="en">
-        <li><strong><a href="https://www.shutterencoder.com/">Shutter Encoder</a></strong>Free. Drop files in, pick “HAP” and batch export.</li>
-        <li><strong><a href="https://synapserack.com/ja/tools/">SynapseRack Media Encoder</a></strong>Free. A batch encoder built for converting to HAP.</li>
-        <li><strong>ffmpeg</strong><code>ffmpeg -i in.mp4 -c:v hap out.mov</code></li>
+        <li><strong><a href="https://www.shutterencoder.com/" target="_blank" rel="noopener">Shutter Encoder</a></strong><span class="by">by Paul Pacifico</span>Free. Drop files in, pick “HAP” and batch export.</li>
+        <li><strong><a href="https://synapserack.com/ja/tools/" target="_blank" rel="noopener">SynapseRack Media Encoder</a></strong><span class="by">by SynapseRack</span>Free. A batch encoder built for converting to HAP.</li>
+        <li><strong><a href="https://ffmpeg.org/" target="_blank" rel="noopener">ffmpeg</a></strong><span class="by">by the FFmpeg project</span><code>ffmpeg -i in.mp4 -c:v hap out.mov</code></li>
       </ul>
-      <p class="more-note" lang="ja">ふだんは HAP、透過が要るときは HAP Alpha、画質を上げたいときは HAP Q。1920×1080・60fpsまで、音は要りません。</p>
-      <p class="more-note" lang="en">Use HAP for most clips, HAP Alpha for transparency and HAP Q for higher quality. Up to 1920×1080 at 60 fps; no audio needed.</p>
+      <p class="more-note" lang="ja">ふだんは HAP、透過が要るときは HAP Alpha、画質を上げたいときは HAP Q。1920×1080・60fpsまで、音は要りません。<br>どれも ONOM FLOW とは関係のない外部のツールです。使い方やお問い合わせは、それぞれの配布元へお願いします。</p>
+      <p class="more-note" lang="en">Use HAP for most clips, HAP Alpha for transparency and HAP Q for higher quality. Up to 1920×1080 at 60 fps; no audio needed.<br>These are third-party tools, not part of or affiliated with ONOM FLOW. For help with them, please contact their developers.</p>
     </div>
   </section>
 
