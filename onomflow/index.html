@@ -113,6 +113,10 @@
   .steps li { counter-increment: step; position: relative; padding: 56px 22px 22px; border-radius: 14px; background: var(--panel); border: 1px solid var(--rule); color: var(--body); font-size: 15px; }
   .steps li::before { content: counter(step); position: absolute; left: 22px; top: 18px; font: 800 26px/1 var(--mono); color: var(--accent); }
   .steps b { display: block; color: var(--text); font-size: 17px; margin-bottom: 4px; }
+  .video { margin: 28px 0 0; }
+  .video .frame { position: relative; aspect-ratio: 16 / 9; border-radius: 14px; overflow: hidden; background: #000; border: 1px solid var(--rule); }
+  .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .video figcaption { color: var(--muted); font-size: 14px; margin-top: 10px; }
   .steps-note { color: var(--body); margin: 20px 0 0 !important; max-width: none !important; font-size: 15px !important; }
   .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .logo-h1 { margin: 26px auto 26px !important; }
@@ -543,8 +547,13 @@
         <li><b>Select a layer, click a clip</b>The clip goes straight to that layer.</li>
         <li><b>Bring it in with a fader</b>Raise alpha to show it, pull it down to hide it, and blend it with the other layers.</li>
       </ol>
-      <p class="steps-note" lang="ja">コントローラーが無くても、マウスだけで始められます。素材が無ければ、無料の <a href="../mirage-composer/">Mirage Composer</a> のデモを素材フォルダに保存すれば、ジェネ素材として使えます。</p>
-      <p class="steps-note" lang="en">No controller? A mouse is enough to start. No footage yet? Save a demo from the free <a href="../mirage-composer/">Mirage Composer</a> into your media folder and play it as a generative clip.</p>
+      <figure class="video">
+        <div class="frame"><iframe src="https://www.youtube-nocookie.com/embed/yDH9HmJjl9w" title="【ONOMFLOW】動画素材読み込み" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+        <figcaption lang="ja">動画で見る：素材の読み込み</figcaption>
+        <figcaption lang="en">Watch: loading your clips</figcaption>
+      </figure>
+      <p class="steps-note" lang="ja">素材が無ければ、無料の <a href="../mirage-composer/">Mirage Composer</a> のデモを素材フォルダに保存すれば、ジェネ素材として使えます。</p>
+      <p class="steps-note" lang="en">No footage yet? Save a demo from the free <a href="../mirage-composer/">Mirage Composer</a> into your media folder and play it as a generative clip.</p>
     </div>
   </section>
 
