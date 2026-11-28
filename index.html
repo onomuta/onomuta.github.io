@@ -41,7 +41,7 @@
   .intro p { color: var(--body); margin: 0; max-width: 34em; }
 
   /* One card per app. To add an app, copy an <a class="app"> block and set --c to its accent color. */
-  .apps { margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+  .apps { margin-top: 28px; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
   a.app {
     --c: #888;
     display: flex; flex-direction: column; gap: 14px; padding: 22px; border-radius: 18px;
@@ -58,10 +58,14 @@
   .meta span { font: 600 11px/1 var(--mono); letter-spacing: 0.04em; padding: 6px 8px; border-radius: 6px; border: 1px solid var(--rule); color: var(--muted); }
   .meta span.status { border-color: #55555c; color: var(--text); }
 
-  .x-link { display: inline-flex; align-items: center; gap: 7px; padding: 6px 12px 6px 10px; border-radius: 999px; border: 1px solid var(--rule); color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 600; }
-  .x-link:hover { color: var(--text); }
-  .x-link:hover { border-color: var(--muted); }
-  .x-link svg { width: 13px; height: 13px; fill: currentColor; }
+  /* Social links, Linktree-style. */
+  .social { margin-top: 40px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .social a { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 14px; background: var(--panel); border: 1px solid var(--rule); color: var(--text); text-decoration: none; transition: border-color .15s, transform .15s; }
+  .social a:hover { border-color: var(--muted); transform: translateY(-2px); }
+  .social svg { width: 20px; height: 20px; flex: none; fill: currentColor; }
+  .social b { display: block; font-size: 15px; line-height: 1.3; }
+  .social small { display: block; color: var(--muted); font: 12px/1.3 var(--mono); }
+  @media (max-width: 720px) { .social { grid-template-columns: repeat(2, 1fr); } }
   footer { margin-top: 96px; border-top: 1px solid var(--rule); padding: 28px 0 44px; color: var(--muted); font-size: 13px; }
   footer a { color: var(--muted); }
 </style>
@@ -71,7 +75,6 @@
   <div class="wrap">
     <span class="brand">ONOM</span>
     <div class="spacer"></div>
-    <a class="x-link" href="https://x.com/onom" aria-label="X: @onom"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 2H22l-6.8 7.8L23.2 22h-6.3l-4.9-6.4L6.4 22H3.3l7.3-8.3L2.8 2h6.4l4.4 5.9L18.9 2Zm-1.1 18.1h1.7L7.3 3.8H5.5l12.3 16.3Z"/></svg><span>@onom</span></a>
     <div class="lang-toggle" role="group" aria-label="Language">
       <button type="button" data-set-lang="ja" aria-pressed="true">日本語</button>
       <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
@@ -81,6 +84,13 @@
 
 <main class="wrap">
   <h1 class="sr">onom apps</h1>
+
+  <nav class="social" aria-label="SNS">
+    <a href="https://x.com/onom" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 2H22l-6.8 7.8L23.2 22h-6.3l-4.9-6.4L6.4 22H3.3l7.3-8.3L2.8 2h6.4l4.4 5.9L18.9 2Zm-1.1 18.1h1.7L7.3 3.8H5.5l12.3 16.3Z"/></svg><span><b>X</b><small>@onom</small></span></a>
+    <a href="https://www.instagram.com/onom/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8C2.4 3.9 3.9 2.4 7.2 2.3 8.4 2.2 8.8 2.2 12 2.2ZM12 0C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.2 4.4 2.6 6.8 7 7 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.2-4.4-2.6-6.8-7-7C15.7 0 15.3 0 12 0Zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4ZM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm6.4-11.8a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9Z"/></svg><span><b>Instagram</b><small>@onom</small></span></a>
+    <a href="https://www.youtube.com/@TakaoOnomura" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8ZM9.6 15.6V8.4l6.2 3.6-6.2 3.6Z"/></svg><span><b>YouTube</b><small>@TakaoOnomura</small></span></a>
+    <a href="https://github.com/onomuta" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg><span><b>GitHub</b><small>onomuta</small></span></a>
+  </nav>
 
   <section class="apps">
     <a class="app" href="onomflow/" style="--c:#c8ff3c">
@@ -126,7 +136,7 @@
 </main>
 
 <footer>
-  <div class="wrap">© 2026 Takao Onomura · <a href="https://x.com/onom">X (@onom)</a> · <a href="https://github.com/onomuta">GitHub</a></div>
+  <div class="wrap">© 2026 Takao Onomura · <a href="https://x.com/onom">X</a> · <a href="https://www.instagram.com/onom/">Instagram</a> · <a href="https://www.youtube.com/@TakaoOnomura">YouTube</a> · <a href="https://github.com/onomuta">GitHub</a></div>
 </footer>
 
 <script>
